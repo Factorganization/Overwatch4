@@ -657,7 +657,7 @@ MonoBehaviour:
         elementCount: 1
       - offset: 1818624
         elementCount: 3
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 3ff5abfec9d6f0341ab972a12170a15e, type: 3}
   scenarios:
     m_Keys:
     - Default
@@ -746,7 +746,7 @@ MonoBehaviour:
             elementCount: 1
           - offset: 29097984
             elementCount: 3
-        m_Asset: {fileID: 0}
+        m_Asset: {fileID: 4900000, guid: 476cbcc905924c14c8820f689bba8f17, type: 3}
       cellOptionalDataAsset:
         m_AssetGUID: e06553a8a88fea941ab38e3550c4f82f
         m_StreamableAssetPath: APVStreamingAssets\a555d64bcaa71f24fb4150dd60bc22e0\e06553a8a88fea941ab38e3550c4f82f.bytes
@@ -830,7 +830,7 @@ MonoBehaviour:
             elementCount: 1
           - offset: 29097984
             elementCount: 3
-        m_Asset: {fileID: 0}
+        m_Asset: {fileID: 4900000, guid: e06553a8a88fea941ab38e3550c4f82f, type: 3}
       cellProbeOcclusionDataAsset:
         m_AssetGUID: 
         m_StreamableAssetPath: APVStreamingAssets\a555d64bcaa71f24fb4150dd60bc22e0\.bytes
@@ -998,7 +998,7 @@ MonoBehaviour:
         elementCount: 20
       - offset: 415280
         elementCount: 281
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: d9d1dba9837de5e44abfd757ca22fa06, type: 3}
   cellSupportDataAsset:
     m_AssetGUID: 81ede8981531b25458013bde997a2e67
     m_StreamableAssetPath: APVStreamingAssets\a555d64bcaa71f24fb4150dd60bc22e0\81ede8981531b25458013bde997a2e67.bytes
@@ -1082,7 +1082,7 @@ MonoBehaviour:
         elementCount: 1
       - offset: 58195968
         elementCount: 3
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 81ede8981531b25458013bde997a2e67, type: 3}
   chunkSizeInBricks: 128
   maxCellPosition: {x: 6, y: 1, z: 1}
   minCellPosition: {x: -2, y: -4, z: -4}
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   supportOffsetsChunkSize: 98304
   supportDataChunkSize: 262144
   lightingScenario: Default
-  version: 1
+  version: 2
   freezePlacement: 0
   probeOffset: {x: 0, y: 0, z: 0}
   simplificationLevels: 2
