@@ -801,7 +801,7 @@ MonoBehaviour:
         elementCount: 24
       - offset: 1835008
         elementCount: 7
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 3767c9013fc9f0644b27e0c1943adff6, type: 3}
   scenarios:
     m_Keys:
     - Default
@@ -908,7 +908,7 @@ MonoBehaviour:
             elementCount: 24
           - offset: 29360128
             elementCount: 7
-        m_Asset: {fileID: 0}
+        m_Asset: {fileID: 4900000, guid: 731db556c5dee0d4ab50d36675197ccc, type: 3}
       cellOptionalDataAsset:
         m_AssetGUID: 8da6dbc15b6680d4fbf9cef2cd4c2d11
         m_StreamableAssetPath: APVStreamingAssets\bec9ed5609e91484c9df36dc7982dc5a\8da6dbc15b6680d4fbf9cef2cd4c2d11.bytes
@@ -1010,7 +1010,7 @@ MonoBehaviour:
             elementCount: 24
           - offset: 29360128
             elementCount: 7
-        m_Asset: {fileID: 0}
+        m_Asset: {fileID: 4900000, guid: 8da6dbc15b6680d4fbf9cef2cd4c2d11, type: 3}
       cellProbeOcclusionDataAsset:
         m_AssetGUID: 
         m_StreamableAssetPath: APVStreamingAssets\bec9ed5609e91484c9df36dc7982dc5a\.bytes
@@ -1214,7 +1214,7 @@ MonoBehaviour:
         elementCount: 3003
       - offset: 406096
         elementCount: 858
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 30a1f5669aa811e47ba1f94206f82e6e, type: 3}
   cellSupportDataAsset:
     m_AssetGUID: f5e53774980185a478af143156acbc2a
     m_StreamableAssetPath: APVStreamingAssets\bec9ed5609e91484c9df36dc7982dc5a\f5e53774980185a478af143156acbc2a.bytes
@@ -1316,7 +1316,7 @@ MonoBehaviour:
         elementCount: 24
       - offset: 58720256
         elementCount: 7
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: f5e53774980185a478af143156acbc2a, type: 3}
   chunkSizeInBricks: 128
   maxCellPosition: {x: 6, y: 1, z: 5}
   minCellPosition: {x: -2, y: -4, z: -4}
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   supportOffsetsChunkSize: 98304
   supportDataChunkSize: 262144
   lightingScenario: Default
-  version: 1
+  version: 2
   freezePlacement: 0
   probeOffset: {x: 0, y: 0, z: 0}
   simplificationLevels: 3

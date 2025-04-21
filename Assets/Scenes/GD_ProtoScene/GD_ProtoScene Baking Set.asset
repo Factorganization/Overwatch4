@@ -257,7 +257,7 @@ MonoBehaviour:
         elementCount: 1
       - offset: 294912
         elementCount: 1
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 37b8c9e3ba3a97241b5cc5bb68219483, type: 3}
   scenarios:
     m_Keys:
     - Default
@@ -296,7 +296,7 @@ MonoBehaviour:
             elementCount: 1
           - offset: 4718592
             elementCount: 1
-        m_Asset: {fileID: 0}
+        m_Asset: {fileID: 4900000, guid: 53d051cd30cb08742b1a535d4a59c0a5, type: 3}
       cellOptionalDataAsset:
         m_AssetGUID: f7c1c1c8a95a33748978fad35cd812a7
         m_StreamableAssetPath: APVStreamingAssets\f472a6aaffc7e104d982f5043c58d54e\f7c1c1c8a95a33748978fad35cd812a7.bytes
@@ -330,7 +330,7 @@ MonoBehaviour:
             elementCount: 1
           - offset: 4718592
             elementCount: 1
-        m_Asset: {fileID: 0}
+        m_Asset: {fileID: 4900000, guid: f7c1c1c8a95a33748978fad35cd812a7, type: 3}
       cellProbeOcclusionDataAsset:
         m_AssetGUID: 
         m_StreamableAssetPath: APVStreamingAssets\f472a6aaffc7e104d982f5043c58d54e\.bytes
@@ -398,7 +398,7 @@ MonoBehaviour:
         elementCount: 15
       - offset: 55200
         elementCount: 8
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 3152603a911c61d49a1de54584524d60, type: 3}
   cellSupportDataAsset:
     m_AssetGUID: 7bd814dd2e84a0f4aacaa0dffd558206
     m_StreamableAssetPath: APVStreamingAssets\f472a6aaffc7e104d982f5043c58d54e\7bd814dd2e84a0f4aacaa0dffd558206.bytes
@@ -432,7 +432,7 @@ MonoBehaviour:
         elementCount: 1
       - offset: 9437184
         elementCount: 1
-    m_Asset: {fileID: 0}
+    m_Asset: {fileID: 4900000, guid: 7bd814dd2e84a0f4aacaa0dffd558206, type: 3}
   chunkSizeInBricks: 128
   maxCellPosition: {x: 1, y: 1, z: 1}
   minCellPosition: {x: -2, y: -1, z: -2}
@@ -467,7 +467,7 @@ MonoBehaviour:
   supportOffsetsChunkSize: 98304
   supportDataChunkSize: 262144
   lightingScenario: Default
-  version: 1
+  version: 2
   freezePlacement: 0
   probeOffset: {x: 0, y: 0, z: 0}
   simplificationLevels: 3
