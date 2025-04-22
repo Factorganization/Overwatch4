@@ -18,9 +18,8 @@ namespace Systems.Inventory
 
             container = root.CreateChild("container");
             
-            var inventory = container.CreateChild("inventory").WithManipulator(new PanelDragManipulator());
+            var inventory = container.CreateChild("inventory");
             inventory.CreateChild("inventoryFrame");
-            inventory.CreateChild("inventoryHeader").Add(new Label(panelName));
             
             var slotsContainer = inventory.CreateChild("slotsContainer");
             for (int i = 0; i < viewModel.Capacity; i++)

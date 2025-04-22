@@ -15,6 +15,7 @@ namespace Systems.Inventory {
         [SerializeField] UIDocument uiDocument;
         [SerializeField] private bool isOpen;
         [SerializeField] List<ItemDetails> startingItems = new List<ItemDetails>();
+        [SerializeField] private RadialMenu radialMenu;
         
         [field: SerializeField]public SerializableGuid Id { get; set; }
         
@@ -37,30 +38,15 @@ namespace Systems.Inventory {
             // Temporaire pour ouvrir et fermer l'inventaire
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                isOpen = !isOpen;
-                uiDocument.rootVisualElement.style.display = isOpen ? DisplayStyle.Flex : DisplayStyle.None;
-
-                if (isOpen)
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                    
-                    Cursor.visible = true;
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
+                radialMenu.Open();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
-            
-            if (Input.GetKeyDown(KeyCode.R))
+            else if (Input.GetKeyUp(KeyCode.Tab))
             {
-                SaveLoadSystem.Instance.SaveGame();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                SaveLoadSystem.Instance.LoadGame("New Game");
+                radialMenu.Close();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
 
@@ -68,6 +54,11 @@ namespace Systems.Inventory {
         {
             controller.Bind(data); 
             data.Id = Id; 
+        }
+        
+        public void EquipItem(ItemDetails item)
+        {
+            Hero.Instance.CurrentEquipedItem = item;
         }
     }
 }

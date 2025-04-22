@@ -17,6 +17,8 @@ namespace Systems.Inventory {
         readonly InventoryView view;
         readonly InventoryModel model;
         readonly int capacity;
+        
+        public InventoryModel Model => model;
 
         InventoryController(InventoryView view, InventoryModel model, int capacity) {
             Debug.Assert(view != null, "View is null");
@@ -46,10 +48,6 @@ namespace Systems.Inventory {
                 model.Swap(originalSlot.Index, closestSlot.Index);
                 return;
             }
-        
-            // TODO world drops
-            // TODO Cross Inventory drops
-            // TODO Hotbar drops
             
             // Moving to Non-Empty Slot
             var sourceItemId = model.Get(originalSlot.Index).details.id;
