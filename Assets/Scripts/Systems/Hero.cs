@@ -73,7 +73,7 @@ namespace Systems
                 return;
 
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 5f)) // portée de 5 unités
+            if (Physics.Raycast(ray, out RaycastHit hit, 5f))
             {
                 var interactible = hit.collider.GetComponent<IInteractible>();
 

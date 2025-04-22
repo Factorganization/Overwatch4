@@ -33,6 +33,7 @@ public class NetworkMapController : MonoBehaviour
         _networkMapCamera.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        
     }
     
     public void CloseNetworkMap()

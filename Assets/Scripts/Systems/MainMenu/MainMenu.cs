@@ -15,11 +15,11 @@ public class MainMenu : MonoBehaviour
         newGameButton = mainMenu.rootVisualElement.Q<Button>("NewGameButton");
         newGameButton.RegisterCallback<ClickEvent>(NewGame);
         
-        loadGameButton = mainMenu.rootVisualElement.Q<Button>("LoadButton");
+        /*loadGameButton = mainMenu.rootVisualElement.Q<Button>("LoadButton");
         loadGameButton.RegisterCallback<ClickEvent>(LoadGame);
         
         settingsButton = mainMenu.rootVisualElement.Q<Button>("SettingsButton");
-        settingsButton.RegisterCallback<ClickEvent>(OpenSettings);
+        settingsButton.RegisterCallback<ClickEvent>(OpenSettings);*/
         
         quitButton = mainMenu.rootVisualElement.Q<Button>("QuitButton");
         quitButton.RegisterCallback<ClickEvent>(QuitGame);

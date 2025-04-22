@@ -33,7 +33,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - UIRenderOnly
   - Actor
   - Player
   - Nope

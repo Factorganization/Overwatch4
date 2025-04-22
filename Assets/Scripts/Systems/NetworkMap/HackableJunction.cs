@@ -4,7 +4,7 @@ using UnityEngine;
 public class HackableJunction : MonoBehaviour, IInteractible
 {
     private NetworkNode node;
-    private RunTimeUI runtimeUI;
+    [SerializeField] private RunTimeUI runtimeUI;
 
     [SerializeField] private float _hackingTime;
     public float HackingTime => _hackingTime;
@@ -14,7 +14,6 @@ public class HackableJunction : MonoBehaviour, IInteractible
     private void Start()
     {
         node = GetComponent<NetworkNode>();
-        runtimeUI = FindObjectOfType<RunTimeUI>();
         _alrHacked = false;
     }
     
