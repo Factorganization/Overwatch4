@@ -26,6 +26,7 @@ namespace GameContent.Controller.Player.PlayerStates
         public override sbyte OnUpdate()
         {
             HandleInputGather();
+            HandleRotateInputGather();
             
             OnFall();
             OnIdle();
@@ -37,7 +38,6 @@ namespace GameContent.Controller.Player.PlayerStates
 
         public override sbyte OnFixedUpdate()
         {
-            HandleRotateInputGather();
             HandleGravity();
             Move(playerMachine.PlayerModel.currentMoveMultiplier);
             Look();

@@ -12,3 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9683d629d2f04edebc8dabe90f15ff6f, type: 3}
   m_Name: StaticSceneList
   m_EditorClassIdentifier: 
+  sceneGroups:
+  - sceneGroupName: TestGroup
+    scenePaths:
+    - scene: {fileID: 102900000, guid: 8124e5870f4fd4c779e7a5f994e84ad1, type: 3}
+      additionalScenePath: 
+    - scene: {fileID: 102900000, guid: 36c15505ef087224898c60b9d51bba30, type: 3}
+      additionalScenePath: 
+    - scene: {fileID: 102900000, guid: 1f76dfe8cd3456546b055e0e15ed7eab, type: 3}
+      additionalScenePath: SC_GA/
+  - sceneGroupName: OtherTest
+    scenePaths: []
+  currentSceneGroupName: TestGroup

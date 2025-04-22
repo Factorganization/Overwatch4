@@ -27,7 +27,7 @@ MonoBehaviour:
     crouchHeight: 1.5
     accelDecelMultiplier: 11
   cameraData:
-    camSensitivity: 0.11
+    camSensitivity: 0.02
     maxPitchAngle: 90
   groundCheckData:
     groundLayer:
