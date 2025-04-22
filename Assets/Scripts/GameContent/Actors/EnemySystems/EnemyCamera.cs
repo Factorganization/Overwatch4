@@ -7,17 +7,17 @@ namespace GameContent.Actors.EnemySystems
     public class EnemyCamera : Actor
     {
         #region properties
-
-        public bool IsActive
+        
+        public override bool IsActive
         {
-            get => _isActive;
+            get => isActive;
             set
             {
-                _isActive = value;
-                coneRenderer.material.color = !_isActive ? Color.clear : new Color(1, 1, 1, 0.2f);
+                isActive = value;
+                coneRenderer.material.color = !isActive ? Color.clear : new Color(1, 1, 1, 0.2f);
             }
         }
-
+        
         #endregion
         
         #region methodes
@@ -34,9 +34,6 @@ namespace GameContent.Actors.EnemySystems
 
         public override void OnUpdate()
         {
-            if (!IsActive)
-                return;
-            
             HandleCameraRotation();
             
             var s = HasPlayerInSight();
@@ -53,6 +50,10 @@ namespace GameContent.Actors.EnemySystems
                     _playerView.SightCount--;
                     break;
             }
+        }
+
+        public override void OnFixedUpdate()
+        {
         }
 
         private bool HasPlayerInSight()
@@ -192,14 +193,14 @@ namespace GameContent.Actors.EnemySystems
         [SerializeField] private CameraRotation[] cameraRotations;
         
         private PlayerView _playerView;
-
-        private bool _isActive;
         
         private bool _inSight;
 
         #endregion
     }
 
+    #region Cam Data
+    
     [Serializable]
     internal class CameraRotation
     {
@@ -272,4 +273,6 @@ namespace GameContent.Actors.EnemySystems
     {
         X, Y, Z
     }
+    
+    #endregion
 }

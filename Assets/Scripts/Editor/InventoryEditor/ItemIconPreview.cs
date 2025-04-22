@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(ItemDetails))]
-public class ItemIconPreview : Editor
+public class ItemIconPreview : UnityEditor.Editor
 {
     ItemDetails itemDetails;
     

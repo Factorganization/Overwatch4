@@ -16,7 +16,23 @@ namespace GameContent.Management
         private void Update()
         {
             foreach (var a in actors)
+            {
+                if (!a.IsActive)
+                    continue;
+                
                 a.OnUpdate();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            foreach (var a in actors)
+            {
+                if (!a.IsActive)
+                    continue;
+
+                a.OnFixedUpdate();
+            }
         }
         
         #endregion

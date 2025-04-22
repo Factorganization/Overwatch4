@@ -18,6 +18,10 @@ namespace GameContent.Actors.EnemySystems
         {
         }
 
+        public override void OnFixedUpdate()
+        {
+        }
+
         public override void OnAction()
         {
             enemyCameraRef.IsActive = !enemyCameraRef.IsActive;
