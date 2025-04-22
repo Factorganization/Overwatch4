@@ -1,10 +1,7 @@
 {
     "name": "RunTimeContentDef",
     "rootNamespace": "",
-    "references": [
-        "GUID:7a567a4e2d1057d4cb83fc3883f7c0db",
-        "GUID:865f8b0bad79a314faed73bedaa6dc02"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [
         "WindowsStandalone64"
