@@ -39,11 +39,7 @@ public class RunTimeUI : MonoBehaviour
     
     public void RevealFromJunction(NetworkNode junction)
     {
-        NetworkMapController.Instance.RevealNode(junction);
-        foreach (var n in junction.connectedNodes)
-        {
-            NetworkMapController.Instance.RevealNode(n);
-        }
+        
     }
 
     private void SetupNetworkMap()

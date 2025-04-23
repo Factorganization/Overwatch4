@@ -65,6 +65,11 @@ namespace Systems
             {
                 NetworkMapController.Instance.CloseNetworkMap();
             }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                NetworkMapController.Instance.OpenNetworkMap();
+            }
         }
         
         private void TryInteract()
