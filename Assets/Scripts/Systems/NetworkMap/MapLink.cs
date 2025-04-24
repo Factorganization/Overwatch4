@@ -1,5 +1,6 @@
 using System;
 using GameContent.Actors.EnemySystems;
+using GameContent.Actors.EnemySystems.Seekers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

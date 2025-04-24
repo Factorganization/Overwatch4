@@ -2,7 +2,7 @@
 using GameContent.ActorViews.Player;
 using UnityEngine;
 
-namespace GameContent.Actors.EnemySystems
+namespace GameContent.Actors.EnemySystems.Seekers
 {
     public class EnemyCamera : Actor
     {

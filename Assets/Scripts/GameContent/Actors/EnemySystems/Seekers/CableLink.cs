@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameContent.Actors.EnemySystems
+namespace GameContent.Actors.EnemySystems.Seekers
 {
     /// <summary>
     /// Pokemon mentioned
