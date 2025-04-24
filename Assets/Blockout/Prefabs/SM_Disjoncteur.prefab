@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2519305148377359953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8361203822356853934}
+  m_Layer: 0
+  m_Name: SM_Disjoncteur
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8361203822356853934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519305148377359953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4807702477602297717}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4986288062984974494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8361203822356853934}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7864445937712267511, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Light_ON
+      objectReference: {fileID: 0}
+    - target: {fileID: -6211422892381905278, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Flap_04
+      objectReference: {fileID: 0}
+    - target: {fileID: -5842940374656498292, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Switch_04
+      objectReference: {fileID: 0}
+    - target: {fileID: -2858469102700746290, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Light_02
+      objectReference: {fileID: 0}
+    - target: {fileID: -1030446685737502480, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Switch_05
+      objectReference: {fileID: 0}
+    - target: {fileID: -801825058217683634, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Flap_03
+      objectReference: {fileID: 0}
+    - target: {fileID: -57177508716389461, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Switch_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: SM_Disjoncteur
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178188536479759994, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Switch_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585113287294741200, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Flap_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946961980570597297, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Flap_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384296461249987787, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Light_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012365502886022781, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Light_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362050443974924870, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Switch_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526448152239654731, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Levier
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243608878698691669, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Light_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425068396903032270, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Light_OFF
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814934091623023694, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+      propertyPath: m_Name
+      value: Boitier
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+--- !u!4 &4807702477602297717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a0b1e758998940d4ca261572082d57e0, type: 3}
+  m_PrefabInstance: {fileID: 4986288062984974494}
+  m_PrefabAsset: {fileID: 0}
