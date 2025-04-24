@@ -16,7 +16,10 @@ namespace GameContent.Actors
         
         #region methodes
 
-        public abstract void Init(Transform player);
+        public virtual void Init(Transform player)
+        {
+            playerTransform = player;
+        }
         
         public abstract void OnUpdate();
 
