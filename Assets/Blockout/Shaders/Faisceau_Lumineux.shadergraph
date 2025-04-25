@@ -752,7 +752,7 @@
     "m_AffectsSmoothness": true,
     "m_AffectsAlbedo": true,
     "m_AffectsNormal": true,
-    "m_AffectsEmission": false,
+    "m_AffectsEmission": true,
     "m_DrawOrder": 0,
     "m_SupportLodCrossFade": false,
     "m_TransparentDynamicUpdate": false
@@ -1517,7 +1517,7 @@
         "a": 0.0
     },
     "isMainColor": false,
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
@@ -2249,7 +2249,7 @@
     "m_TessellationMaxDisplacement": 0.009999999776482582,
     "m_DebugSymbols": false,
     "m_Version": 2,
-    "inspectorFoldoutMask": 0
+    "inspectorFoldoutMask": 16
 }
 
 {
