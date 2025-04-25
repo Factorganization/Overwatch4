@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using GameContent.Actors.EnemySystems.Seekers;
+using UnityEngine;
 
 namespace GameContent.Management
 {
     public class SuspicionManager : MonoBehaviour
     {
         #region properties
-        
+
         public static SuspicionManager Manager { get; private set; }
-        
+
         public bool IsInvestigating { get; private set; }
-        
+
+        public bool IsTracking { get; private set; }
+
         #endregion
 
         #region methodes
@@ -21,10 +24,10 @@ namespace GameContent.Management
                 Destroy(gameObject);
                 return;
             }
-            
+
             Manager = this;
         }
-        
+
         private void Start()
         {
             _suspicionLevel = 0;
@@ -39,12 +42,18 @@ namespace GameContent.Management
                 RemoveSuspicion(suspicionDecreasePerSecond);
                 _suspicionDecreaseTimer = 1;
             }
+
+            if (_suspicionLevel > investigationLevel && !IsInvestigating)
+            {
+                IsInvestigating = true;
+                //TODO ca cours
+            }
         }
 
         public void AddSuspicion(float value) => _suspicionLevel += value;
-        
+
         public void RemoveSuspicion(float value) => _suspicionLevel -= value;
-        
+
         #endregion
 
         #region fields
@@ -52,11 +61,19 @@ namespace GameContent.Management
         [SerializeField] private float investigationLevel;
 
         [SerializeField] private float suspicionDecreasePerSecond;
-        
+
+        [SerializeField] private Transform playerTransform;
+
+        [SerializeField] private Drone[] dronesManualPool;
+
+        [SerializeField] private PoolData<Hound> houndPoolData;
+
+        private Pool<Hound> _houndPool;
+
         private float _suspicionLevel; //Game Core
 
         private float _suspicionDecreaseTimer;
-        
+
         #endregion
     }
 }
