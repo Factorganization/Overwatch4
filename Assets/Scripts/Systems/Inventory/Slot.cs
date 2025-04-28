@@ -30,14 +30,6 @@ namespace Systems.Inventory
                 OnstartDrag(evt.position, this);
                 evt.StopPropagation();
             }
-            
-            if (evt.button == 1)
-            {
-                // Drop down menu with differents options
-                Debug.Log("Right click");
-                Remove();
-                evt.StopPropagation();
-            }
         }
         
         public void Set(SerializableGuid id , Sprite icon, int qty = 0)

@@ -42,7 +42,7 @@ namespace Systems.Persistence
         private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
         private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
-        private void Start() => NewGame();
+        //private void Start() => NewGame();
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {

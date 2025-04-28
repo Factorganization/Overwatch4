@@ -1,6 +1,7 @@
 using System;
 using Systems.Persistence;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenu : MonoBehaviour
@@ -14,11 +15,11 @@ public class MainMenu : MonoBehaviour
         newGameButton = mainMenu.rootVisualElement.Q<Button>("NewGameButton");
         newGameButton.RegisterCallback<ClickEvent>(NewGame);
         
-        loadGameButton = mainMenu.rootVisualElement.Q<Button>("LoadGameButton");
+        /*loadGameButton = mainMenu.rootVisualElement.Q<Button>("LoadButton");
         loadGameButton.RegisterCallback<ClickEvent>(LoadGame);
         
         settingsButton = mainMenu.rootVisualElement.Q<Button>("SettingsButton");
-        settingsButton.RegisterCallback<ClickEvent>(OpenSettings);
+        settingsButton.RegisterCallback<ClickEvent>(OpenSettings);*/
         
         quitButton = mainMenu.rootVisualElement.Q<Button>("QuitButton");
         quitButton.RegisterCallback<ClickEvent>(QuitGame);
@@ -31,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame(ClickEvent evt)
     {
-        SaveLoadSystem.Instance.NewGame();
+        SceneManager.LoadScene("Bootstrapper");
     }
     
     public void OpenSettings(ClickEvent evt)

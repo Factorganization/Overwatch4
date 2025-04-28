@@ -1,22 +1,16 @@
 using UnityEngine;
 
-
 namespace Systems.Inventory
 {
     public enum Type
     {
-        Resource,
-        Tool,
-        Weapon,
-        Armor,
+        MultiTool,
         Consumable,
-        Quest
     }
 
     public enum Action
     {
         None,
-        Dig,
     }
     
     [CreateAssetMenu(fileName = "New Item", menuName = "Scriptable Objects/ItemDetails")]
