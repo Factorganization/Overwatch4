@@ -25,7 +25,7 @@ namespace Systems.Inventory {
         
         private void Awake()
         {
-            controller = new InventoryController.Builder(view)
+            controller = new InventoryController.Builder()
                 .WithStartingItems(startingItems)
                 .WithCapacity(capacity)
                 .Build();

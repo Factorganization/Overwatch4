@@ -17,7 +17,7 @@ namespace Systems
         [SerializeField] private PlayerData data;
         [SerializeField] private ItemDetails currentEquipedItem;
         [SerializeField] private Image _hackProgressImage;
-        //[SerializeField] private GameObject _multiToolObject;
+        [SerializeField] private MultiTool _multiToolObject;
         
         private HackableJunction _currentJunction;
         private float _currentHackTimer;
@@ -120,6 +120,7 @@ namespace Systems
             {
                 _currentJunction.OnInteract();
                 _currentJunction._alrHacked = true;
+                _multiToolObject.ConsumeBattery(0.1f);
                 CancelHack();
             }
         }

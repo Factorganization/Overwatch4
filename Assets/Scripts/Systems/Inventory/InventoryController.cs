@@ -20,15 +20,11 @@ namespace Systems.Inventory {
         
         public InventoryModel Model => model;
 
-        InventoryController(InventoryView view, InventoryModel model, int capacity) {
-            Debug.Assert(view != null, "View is null");
+        InventoryController(InventoryModel model, int capacity) {
             Debug.Assert(model != null, "Model is null");
             Debug.Assert(capacity > 0, "Capacity is less than 1");
-            this.view = view;
             this.model = model;
             this.capacity = capacity;
-
-            view.StartCoroutine(Initialize());
         }
         
         public void Bind(InventoryData data) => model.Bind(data);
@@ -94,10 +90,6 @@ namespace Systems.Inventory {
             InventoryView view;
             IEnumerable<ItemDetails> itemDetails;
             int capacity;
-            
-            public Builder(InventoryView view) {
-                this.view = view;
-            }
 
             public Builder WithStartingItems(IEnumerable<ItemDetails> itemDetails) {
                 this.itemDetails = itemDetails;
@@ -114,7 +106,7 @@ namespace Systems.Inventory {
                     ? new InventoryModel(itemDetails, capacity) 
                     : new InventoryModel(Array.Empty<ItemDetails>(), capacity);
 
-                return new InventoryController(view, model, capacity);
+                return new InventoryController(model, capacity);
             }
         }
         
