@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a91c44bb4f6bd4aaecd578301e2882, type: 3}
   m_Name: Test2
   m_EditorClassIdentifier: 
-  Name: Test2
+  Name: Processor
   type: 1
   action: 0
   maxStack: 2

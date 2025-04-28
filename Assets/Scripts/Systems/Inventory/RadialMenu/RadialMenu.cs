@@ -26,6 +26,7 @@ public class RadialMenu : MonoBehaviour
             
             AddEntry(Inventory.Instance.Controller.Model.Items[i].details.Name,
                      Inventory.Instance.Controller.Model.Items[i].details.icon,
+                     Inventory.Instance.Controller.Model.Items[i].quantity,
                      EquipItem);
             
             entries[i].gameObject.SetActive(false);
@@ -34,7 +35,7 @@ public class RadialMenu : MonoBehaviour
         Rearrange();
     }
     
-    void AddEntry(string pLabel, Sprite pIcon, RadialMenuEntry.RadialMenuEntryDelegate Callback)
+    void AddEntry(string pLabel, Sprite pIcon, int pQuantity, RadialMenuEntry.RadialMenuEntryDelegate Callback)
     {
         GameObject entry = Instantiate(radialMenuEntryPrefab, transform);
         RadialMenuEntry rme = entry.GetComponent<RadialMenuEntry>();
@@ -42,8 +43,21 @@ public class RadialMenu : MonoBehaviour
         rme.SetLabel(pLabel);
         rme.SetIcon(pIcon);
         rme.SetCallback(Callback);
+        rme.SetNumberOfItems(pQuantity);
         
         entries.Add(rme);
+    }
+    
+    public void RefreshVisual()
+    {
+        for (int i = 0; i < numberOfEntries; i++)
+        {
+            if (Inventory.Instance.Controller.Model.Items[i].details.Name == null) continue;
+            
+            entries[i].Refresh(Inventory.Instance.Controller.Model.Items[i].details.Name,
+                               Inventory.Instance.Controller.Model.Items[i].details.icon,
+                               Inventory.Instance.Controller.Model.Items[i].quantity);
+        }
     }
 
     public void Open()

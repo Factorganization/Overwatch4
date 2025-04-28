@@ -35,7 +35,7 @@ namespace Systems.Inventory {
             view.OnDrop += HandleDrop;
             model.OnModelChanged += HandleModelChanged;
 
-            RefreshView();
+            //RefreshView();
         }
 
         void HandleDrop(Slot originalSlot, Slot closestSlot) {
@@ -70,17 +70,20 @@ namespace Systems.Inventory {
         }
         
         public void AddItem(ItemDetails itemDetails, int quantity) {
-            if (model.Add(itemDetails.CreateItem(quantity)))
+            foreach (var item in model.Items.items) 
             {
-                Debug.Log("Added Item! Current Inventory:");
-                foreach (var item in model.Items.items) {
-                    Debug.Log(item?.details?.id);
+                if (item.details != itemDetails) continue;
+                
+                if (item.details.name.Equals(itemDetails.name)) {
+                    Debug.Log(quantity);
+                    item.quantity += quantity;
+                    Inventory.Instance.RadialMenu.RefreshVisual();
+                    return;
                 }
-                RefreshView();
-            }
-            else
-            {
-                Debug.LogError("Inventory is full!");
+                
+                var newItem = itemDetails.CreateItem(quantity);
+                model.Add(newItem);
+                return;
             }
         }
         

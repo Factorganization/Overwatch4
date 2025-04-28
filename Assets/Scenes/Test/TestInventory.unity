@@ -140,7 +140,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3065859111097221930, guid: 1ab140f86e6c06144a5f9eefd24ec324, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: GameUI
       objectReference: {fileID: 0}
     - target: {fileID: 8349091553480452217, guid: 1ab140f86e6c06144a5f9eefd24ec324, type: 3}
       propertyPath: m_Pivot.x
@@ -237,7 +237,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3718133579338104514, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: capacity
-      value: 9
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3718133579338104514, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: radialMenu
@@ -254,15 +254,15 @@ PrefabInstance:
     - target: {fileID: 3718133579338104514, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: 'startingItems.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7c9e012513176da43a6157960df33390, type: 2}
+      objectReference: {fileID: 11400000, guid: cf3be81f46cb78e4baf9dce9e5d30b82, type: 2}
     - target: {fileID: 3718133579338104514, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: 'startingItems.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: cf3be81f46cb78e4baf9dce9e5d30b82, type: 2}
+      objectReference: {fileID: 11400000, guid: a46deea73af43d14794bbd9effb22f35, type: 2}
     - target: {fileID: 3718133579338104514, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: 'startingItems.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: a46deea73af43d14794bbd9effb22f35, type: 2}
+      objectReference: {fileID: 11400000, guid: 7c9e012513176da43a6157960df33390, type: 2}
     - target: {fileID: 4056294508060655006, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: m_Name
       value: Inventory
@@ -274,6 +274,10 @@ PrefabInstance:
     - target: {fileID: 4617876610276070814, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514621934648233089, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
+      propertyPath: document
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7514621934648233089, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
       propertyPath: m_Enabled
@@ -319,7 +323,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4617876610276070814, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
+    - {fileID: 7514621934648233089, guid: dc8ef43daf732ea4bad5798f4c55130f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -9,7 +9,7 @@ public class RadialMenuEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
 {
     public delegate void RadialMenuEntryDelegate(RadialMenuEntry entry);
     
-    [SerializeField] private TextMeshProUGUI Label;
+    [SerializeField] private TextMeshProUGUI Label, NumberOfItems;
     [SerializeField] private Image Icon;
     [SerializeField] private RectTransform rect;
 
@@ -20,6 +20,18 @@ public class RadialMenuEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private void Start()
     {
         rect = GetComponent<RectTransform>();
+    }
+
+    public void Refresh(string pLabel, Sprite pIcon, int pQuantity)
+    {
+        SetLabel(pLabel);
+        SetIcon(pIcon);
+        SetNumberOfItems(pQuantity);
+    }
+    
+    public void SetNumberOfItems(int number)
+    {
+        NumberOfItems.text = number.ToString();
     }
 
     public void SetLabel(string label)

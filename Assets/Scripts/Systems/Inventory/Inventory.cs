@@ -10,14 +10,13 @@ namespace Systems.Inventory {
     {
         public static Inventory Instance;
         
-        [SerializeField] InventoryView view;
-        [SerializeField] int capacity = 21;
-        [SerializeField] UIDocument uiDocument;
-        [SerializeField] private bool isOpen;
+        [SerializeField] int capacity;
         [SerializeField] List<ItemDetails> startingItems = new List<ItemDetails>();
         [SerializeField] private RadialMenu radialMenu;
         
         [field: SerializeField]public SerializableGuid Id { get; set; }
+        
+        public RadialMenu RadialMenu => radialMenu;
         
         InventoryController controller;
         
@@ -29,7 +28,6 @@ namespace Systems.Inventory {
                 .WithStartingItems(startingItems)
                 .WithCapacity(capacity)
                 .Build();
-            isOpen = true;
             Instance = this;
         }
 

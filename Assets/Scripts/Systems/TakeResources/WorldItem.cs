@@ -13,7 +13,6 @@ namespace Systems.TakeResources
         public void OnInteract()
         {
             Inventory.Inventory.Instance.Controller.AddItem(itemDetails, quantity);
-            // Temporaire pour les tests
             Destroy(gameObject);
         }
     }
