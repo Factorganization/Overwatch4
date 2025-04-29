@@ -30,6 +30,7 @@ namespace GameContent.Controller.Player.PlayerStates
             _jumpCounter += Time.deltaTime;
 
             HandleInputGather();
+            HandleRotateInputGather();
             
             OnFall();
             return 0;
@@ -37,7 +38,6 @@ namespace GameContent.Controller.Player.PlayerStates
 
         public override sbyte OnFixedUpdate()
         {
-            HandleRotateInputGather();
             Move(playerMachine.PlayerModel.currentMoveMultiplier);
             Look();
             

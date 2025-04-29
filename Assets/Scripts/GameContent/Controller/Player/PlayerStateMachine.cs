@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using GameContent.Controller.BaseMachine;
 using GameContent.Controller.Player.PlayerStates;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace GameContent.Controller.Player
 {

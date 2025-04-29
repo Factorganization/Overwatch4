@@ -69,7 +69,7 @@ namespace GameContent.Controller.Player
 
         protected void HandleRotateInputGather()
         {
-            lookDir = dataSo.inputData.lookInput.action.ReadValue<Vector2>();
+            lookDir = dataSo.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
         }
         
         protected void Move(float moveMultiplier)
@@ -86,8 +86,8 @@ namespace GameContent.Controller.Player
 
         protected void Look()
         {
-            playerMachine.PlayerModel.camYaw += lookDir.x * dataSo.cameraData.camSensitivity;
-            playerMachine.PlayerModel.camPitch -= lookDir.y * dataSo.cameraData.camSensitivity;
+            playerMachine.PlayerModel.camYaw += lookDir.x * dataSo.cameraData.camSensitivity * Time.fixedDeltaTime;
+            playerMachine.PlayerModel.camPitch -= lookDir.y * dataSo.cameraData.camSensitivity * Time.fixedDeltaTime;
             playerMachine.PlayerModel.camPitch = ClampSymmetric(playerMachine.PlayerModel.camPitch, dataSo.cameraData.maxPitchAngle);
             
             camRef.Rotate(new Vector3(-lookDir.y * dataSo.cameraData.camSensitivity, 0, 0));

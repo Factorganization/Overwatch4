@@ -14,12 +14,15 @@
 
 .inventory{
     background-image: url("/Assets/Textures/PlaceHolders/UI board Large  parchment.png");
-    width: 570px;
+    position: absolute;
+    bottom: 30;
+    align-self: center;
+    width: 500px;
     padding: 15px;
-    max-height: 500px;
+    max-height: 75px;
 }
 
-.inventoryHeader{
+/*.inventoryHeader{
     position: absolute;
     top: -25px;
     left: 140px;
@@ -29,27 +32,16 @@
     align-items: center;
     background-image: url("/Assets/Textures/PlaceHolders/UI board Small Set.png");
     -unity-slice-scale: 0.5;
-}
+}*/
 
-Label{
+/*Label{
     font-size: 24px;
-}
-
-/*.inventoryFrame{
-    position: absolute;
-    top: -10px;
-    left: -17px;
-    width: 610px;
-    height: 310px;
-    justify-content: center;
-    align-items: center;
-    background-image: url("/Assets/Textures/UI board Small Set.png");
-    -unity-slice-scale: 0.5;
 }*/
 
 .slotsContainer {
     flex-grow: 1;
-    padding-top: 30px;
+    top: -15;
+    padding-top: 15px;
     flex-wrap: wrap;
     flex-direction: row;
     align-items: flex-start;
@@ -58,26 +50,26 @@ Label{
 }
 
 .slot{
-    width: 60px;
-    height: 60px;
-    margin: 4px;
+    width: 45px;
+    height: 45px;
+    margin: 2px;
 }
 
 .slotFrame
 {
     position: absolute;
     top: 0;
-    left: 30px;
-    width: 60px;
-    height: 60px;
+    left: 15px;
+    width: 45px;
+    height: 45px;
     border-width: 0;
     background-image: url("/Assets/Textures/PlaceHolders/Steampunk_UI_Frames_3.png");
-    -unity-slice-scale: 0.8;
+    -unity-slice-scale: 0.4;
 }
 
 .slotIcon{
-    padding: 4px;
-    left: 30px;
+    padding: 2px;
+    left: 15px;
     flex-shrink: 0;
     flex-grow: 1;
 }
@@ -93,7 +85,7 @@ Label{
 .ghostIcon{
     visibility: hidden;
     position: absolute;
-    padding: 25px;
+    padding: 12px;
     flex-shrink: 0;
     flex-grow: 1;
 }
