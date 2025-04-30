@@ -16,9 +16,9 @@ namespace Systems
         [field: SerializeField]public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid();
         
         [Header("Components")]
-        [SerializeField] private Camera camera;
-        [SerializeField] private PlayerData data;
-        [SerializeField] private HeroHealth health;
+        [SerializeField] private Camera _camera;
+        [SerializeField] private PlayerData _data;
+        [SerializeField] private HeroHealth _health;
         [SerializeField] private Image _hackProgressImage;
         [SerializeField] private MultiTool _multiToolObject;
         
@@ -31,7 +31,7 @@ namespace Systems
         private float _currentHackTimer;
         private bool _isHacking;
         
-        public HeroHealth Health => health;
+        public HeroHealth Health => _health;
         
         public bool IsHacking => _isHacking;
         
@@ -48,18 +48,18 @@ namespace Systems
         
         public void Bind(PlayerData data)
         {
-            this.data = data;
-            this.data.Id = Id;
+            _data = data;
+            _data.Id = Id;
             transform.position = data.position;
             transform.rotation = data.rotation;
         }
 
         private void Update()
         {
-            data.position = transform.position;
-            data.rotation = transform.rotation;
+            _data.position = transform.position;
+            _data.rotation = transform.rotation;
             
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
             {
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Interactible"))
@@ -74,8 +74,7 @@ namespace Systems
                     return;
                 }
             }
-
-            // Not hitting a valid interactible
+            
             if (_currentInteractible != null)
             {
                 _currentInteractible = null;
@@ -88,7 +87,7 @@ namespace Systems
             if (!_currentEquipedItem)
                 return;
 
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
             {
                 var interactible = hit.collider.GetComponent<IInteractible>();
