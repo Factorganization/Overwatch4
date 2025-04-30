@@ -21,7 +21,7 @@ namespace GameContent.Controller.Player.PlayerStates
              playerMachine.PlayerModel.currentMoveMultiplier -= 0.3f;
              _jumpCounter = 1;
              
-             //TODO open les menus ici
+             NetworkMapController.Instance.OpenNetworkMap();
              
              OnSprint();
          }
@@ -58,7 +58,7 @@ namespace GameContent.Controller.Player.PlayerStates
              Cursor.lockState = CursorLockMode.Locked;
              playerMachine.PlayerModel.currentMoveMultiplier += 0.3f;
              
-             //TODO close les menus ici
+             NetworkMapController.Instance.CloseNetworkMap();
          }
          
          private void OnSprint()

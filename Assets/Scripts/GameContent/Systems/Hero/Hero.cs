@@ -33,6 +33,8 @@ namespace Systems
         
         public HeroHealth Health => health;
         
+        public bool IsHacking => _isHacking;
+        
         public ItemDetails CurrentEquipedItem
         {
             get => _currentEquipedItem;
@@ -57,30 +59,6 @@ namespace Systems
             data.position = transform.position;
             data.rotation = transform.rotation;
             
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                TryInteract();
-            }
-
-            if (Input.GetKey(KeyCode.E) && _isHacking)
-            {
-                ContinueHack();
-            }
-            else if (Input.GetKeyUp(KeyCode.E) && _isHacking)
-            {
-                CancelHack();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                NetworkMapController.Instance.CloseNetworkMap();
-            }
-
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                NetworkMapController.Instance.OpenNetworkMap();
-            }
-            
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
             {
@@ -104,8 +82,8 @@ namespace Systems
                 GameUIManager.Instance.UpdateInteractibleUI("", false);
             }
         }
-        
-        private void TryInteract()
+
+        public void TryInteract()
         {
             if (!_currentEquipedItem)
                 return;
@@ -133,8 +111,8 @@ namespace Systems
                 }
             }
         }
-        
-        private void ContinueHack()
+
+        public void ContinueHack()
         {
             if (!_currentJunction) return;
 
@@ -152,7 +130,7 @@ namespace Systems
             }
         }
 
-        private void CancelHack()
+        public void CancelHack()
         {
             ResetHack();
         }

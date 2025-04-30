@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Systems.Inventory;
+using UnityEngine;
 
 namespace GameContent.Controller.Player.PlayerStates
 {
@@ -21,7 +22,7 @@ namespace GameContent.Controller.Player.PlayerStates
             playerMachine.PlayerModel.currentMoveMultiplier -= 0.3f;
             _jumpCounter = 1;
             
-            //TODO open les menus ici
+            Inventory.Instance.RadialMenu.Open();
             
             OnSprint();
         }
@@ -58,7 +59,7 @@ namespace GameContent.Controller.Player.PlayerStates
             Cursor.lockState = CursorLockMode.Locked;
             playerMachine.PlayerModel.currentMoveMultiplier += 0.3f;
             
-            //TODO close les menus ici
+            Inventory.Instance.RadialMenu.Close();
         }
 
         private void OnSprint()

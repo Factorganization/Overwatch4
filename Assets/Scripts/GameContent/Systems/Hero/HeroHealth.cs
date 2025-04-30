@@ -26,6 +26,5 @@ public class HeroHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Hero has died.");
     }
 }
