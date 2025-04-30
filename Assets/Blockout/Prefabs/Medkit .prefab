@@ -85,7 +85,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 50e801142cfb75e4283e07a0c12fa5e9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 155fb19c9345ee149abf6e792c022c6f, type: 2}
+      objectReference: {fileID: 2100000, guid: f29b9efacb0fa1b45a6ebd5778585717, type: 2}
     - target: {fileID: 919132149155446097, guid: 50e801142cfb75e4283e07a0c12fa5e9, type: 3}
       propertyPath: m_Name
       value: medkit_capsule
@@ -151,7 +151,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8b9900f5a3bc10948ad7c2cf2448a9fe, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b266a659c609ff44ebae8b1b1a4ad124, type: 2}
+      objectReference: {fileID: 2100000, guid: 3adcfc42cd59cd34ebbc11b8f29aa50b, type: 2}
     - target: {fileID: 919132149155446097, guid: 8b9900f5a3bc10948ad7c2cf2448a9fe, type: 3}
       propertyPath: m_Name
       value: medkit_haut
@@ -217,7 +217,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 9401fcb72910c68439ae6c356b286c7f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b266a659c609ff44ebae8b1b1a4ad124, type: 2}
+      objectReference: {fileID: 2100000, guid: 3adcfc42cd59cd34ebbc11b8f29aa50b, type: 2}
     - target: {fileID: 919132149155446097, guid: 9401fcb72910c68439ae6c356b286c7f, type: 3}
       propertyPath: m_Name
       value: medkit_bas
