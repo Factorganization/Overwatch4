@@ -97,7 +97,7 @@ namespace Systems.SceneManagement
 
             while (!operationGroup.IsDone)
             {
-                await Task.Delay(100); // Delay to avoid tight loop
+                await Task.Delay(100);
             }
         }
     }

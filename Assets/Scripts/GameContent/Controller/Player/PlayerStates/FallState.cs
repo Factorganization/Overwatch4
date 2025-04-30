@@ -22,6 +22,7 @@ namespace GameContent.Controller.Player.PlayerStates
         public override sbyte OnUpdate()
         {
             HandleInputGather();
+            HandleRotateInputGather();
             
             playerMachine.PlayerModel.coyoteTime -= Time.deltaTime;
             OnJump();
@@ -33,7 +34,6 @@ namespace GameContent.Controller.Player.PlayerStates
         {
             OnGrounded();
             
-            HandleRotateInputGather();
             HandleGravity();
             Move(playerMachine.PlayerModel.currentMoveMultiplier);
             Look();

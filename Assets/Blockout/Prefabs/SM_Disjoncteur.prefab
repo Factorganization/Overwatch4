@@ -80,10 +80,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1185759902956173180, guid: 0a7a6f752520f96419665314a93fa9ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 155fb19c9345ee149abf6e792c022c6f, type: 2}
     - target: {fileID: 919132149155446097, guid: 0a7a6f752520f96419665314a93fa9ae, type: 3}
       propertyPath: m_Name
       value: SM_Disjoncteur 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2260260368830777254, guid: 0a7a6f752520f96419665314a93fa9ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 155fb19c9345ee149abf6e792c022c6f, type: 2}
+    - target: {fileID: 2998594229265303473, guid: 0a7a6f752520f96419665314a93fa9ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 155fb19c9345ee149abf6e792c022c6f, type: 2}
+    - target: {fileID: 9077393241902675299, guid: 0a7a6f752520f96419665314a93fa9ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 155fb19c9345ee149abf6e792c022c6f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -59,13 +59,14 @@ namespace Systems.SceneManagement
             
             EnableLoadingCanvas();
             await manager.LoadScenes(sceneGroups[index], progress);
+            EnableLoadingCanvas(false);
         }
         
         void EnableLoadingCanvas(bool enable = true)
         {
             isLoading = enable;
-            loadingCanvas.enabled = enable;
-            loadingCamera.enabled = enable;
+            loadingCanvas.gameObject.SetActive(enable);
+            loadingCamera.gameObject.SetActive(enable);
         }
     }
     

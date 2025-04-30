@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Test2
   m_EditorClassIdentifier: 
   Name: Test2
+  type: 1
+  action: 0
   maxStack: 2
   id:
     Part1: 3957181386
     Part2: 1320900991
     Part3: 3622363010
     Part4: 1093656894
-  icon: {fileID: 21300000, guid: f47da24570a680740aa67953b14d94b5, type: 3}
+  icon: {fileID: 0}
   description: 
