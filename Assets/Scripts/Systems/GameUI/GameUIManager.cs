@@ -9,8 +9,10 @@ public class GameUIManager : MonoBehaviour
     
     [SerializeField] private GameObject _gameUI;
     [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _interactibleInfoUI;
     
     [SerializeField] private TextMeshProUGUI _healthText;
+    [SerializeField] private TextMeshProUGUI _interactibleText;
 
     private void Awake()
     {
@@ -38,10 +40,16 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    public void UpdateInteractibleUI(string name, bool onoff)
+    {
+        _interactibleText.text = name;
+        _interactibleInfoUI.SetActive(onoff);
+    }
+
     public void TogglePauseMenu()
     {
         bool isActive = _pauseMenu.activeSelf;
         _pauseMenu.SetActive(!isActive);
-        Time.timeScale = isActive ? 1 : 0; // Pause or resume the game
+        Time.timeScale = isActive ? 1 : 0;
     }
 }

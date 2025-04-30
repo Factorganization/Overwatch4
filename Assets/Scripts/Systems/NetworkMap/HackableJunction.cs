@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class HackableJunction : MonoBehaviour, IInteractible
 {
-    [SerializeField] private RoomMap map;
-
-    [SerializeField] private float _hackingTime;
+    [SerializeField] protected RoomMap map;
+    [SerializeField] protected float _hackingTime;
+    [SerializeField] protected string _interactibleName;
+        
     public float HackingTime => _hackingTime;
-    
+    public string InteractibleName => _interactibleName;
     public bool _alrHacked;
+    
     
     private void Start()
     {
         _alrHacked = false;
     }
-    
+
     public void OnInteract() 
     {
         if (_alrHacked == false) OnHack();
     }
     
-    void OnHack()
+    protected virtual void OnHack()
     {
         _alrHacked = true;
         NetworkMapController.Instance.RevealRoom(map);
     }
-    
-    
 }

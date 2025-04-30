@@ -22,7 +22,7 @@ public class MapLink : MonoBehaviour
 
      private void Start()
      {
-          _enemyCamera = (EnemyCamera)_linkedNode.actor;
+          _enemyCamera = _linkedNode.actor as EnemyCamera;
           _linkNameInputField.text = _linkedNode.nodeId;
      }
 
@@ -42,9 +42,9 @@ public class MapLink : MonoBehaviour
           SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 
-     private void UnlinkDevice()
+     public void UnlinkDevice()
      {
-          _enemyCamera.IsActive = false;
+          _enemyCamera.IsActive = !_enemyCamera.IsActive;
           SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 }

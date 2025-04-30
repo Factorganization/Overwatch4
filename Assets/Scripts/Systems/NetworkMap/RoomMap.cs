@@ -5,4 +5,7 @@ public class RoomMap : MonoBehaviour
 {
     [SerializeField] List<NetworkNode> _nodes = new List<NetworkNode>();
     [SerializeField] List<MapLink> _mapLink = new List<MapLink>();
+    
+    public List<NetworkNode> Nodes => _nodes;
+    public List<MapLink> MapLink => _mapLink;
 }

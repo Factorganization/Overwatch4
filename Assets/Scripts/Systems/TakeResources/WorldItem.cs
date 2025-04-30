@@ -10,6 +10,8 @@ namespace Systems.TakeResources
         public ItemDetails itemDetails;
         public int quantity;
 
+        public string InteractibleName => itemDetails.Name;
+
         public void OnInteract()
         {
             Inventory.Inventory.Instance.Controller.AddItem(itemDetails, quantity);

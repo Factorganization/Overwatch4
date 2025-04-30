@@ -27,6 +27,7 @@ namespace Systems
         [SerializeField] private float _interactDistance;
         
         private HackableJunction _currentJunction;
+        private IInteractible _currentInteractible;
         private float _currentHackTimer;
         private bool _isHacking;
         
@@ -78,6 +79,29 @@ namespace Systems
             if (Input.GetKeyDown(KeyCode.T))
             {
                 NetworkMapController.Instance.OpenNetworkMap();
+            }
+            
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
+            {
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Interactible"))
+                {
+                    var interactible = hit.collider.GetComponent<IInteractible>();
+
+                    if (interactible != null && interactible != _currentInteractible)
+                    {
+                        _currentInteractible = interactible;
+                        GameUIManager.Instance.UpdateInteractibleUI(interactible.InteractibleName, true);
+                    }
+                    return;
+                }
+            }
+
+            // Not hitting a valid interactible
+            if (_currentInteractible != null)
+            {
+                _currentInteractible = null;
+                GameUIManager.Instance.UpdateInteractibleUI("", false);
             }
         }
         
