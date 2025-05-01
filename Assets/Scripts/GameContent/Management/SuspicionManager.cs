@@ -9,11 +9,19 @@ namespace GameContent.Management
 
         public static SuspicionManager Manager { get; private set; }
 
+        public HeroHealth PlayerHealth => _playerHealth;
+        
         public bool IsInvestigating { get; private set; }
 
         public bool IsTracking { get; private set; }
 
+        public Vector3 TrackedPos { get; private set; }
+
+        public Vector3 StartDebugPos => _debugHoundStartPos;
+        
         public float DetectionTime { get; set; }
+
+        public float TrackTimer { get; set; }
         
         #endregion
 
@@ -23,9 +31,9 @@ namespace GameContent.Management
         {
             if (Manager is not null)
             {
-                Debug.Log("There was already a suspicion manager in the scene, duplicate was removed safely");
-                Destroy(gameObject);
-                return;
+                //Debug.Log("There was already a suspicion manager in the scene, duplicate was removed safely");
+                //Destroy(gameObject);
+                //return;
             }
 
             Manager = this;
@@ -34,12 +42,30 @@ namespace GameContent.Management
         private void Start()
         {
             _suspicionLevel = 0;
+            _debugHoundStartPos = debugHound.transform.position;
+            _playerHealth = playerTransform.GetComponent<HeroHealth>();
         }
 
         private void Update()
         {
             _suspicionDecreaseTimer -= Time.deltaTime;
 
+            if (DetectionTime > minCameraTimeForSuspicion)
+            {
+                DetectionTime = 0;
+                StartTrack();
+            }
+
+            if (IsTracking)
+            {
+                TrackTimer += Time.deltaTime;
+                if (TrackTimer > 7.5f)
+                {
+                    IsTracking = false;
+                    TrackTimer = 0;
+                }
+            }
+            return; //POUR FIRST PLAYABLE
             if (_suspicionLevel > 0 && _suspicionDecreaseTimer < 0)
             {
                 RemoveSuspicion(suspicionDecreasePerSecond);
@@ -65,6 +91,14 @@ namespace GameContent.Management
 
         public void RemoveSuspicion(float value) => _suspicionLevel -= value;
 
+        private void StartTrack()
+        {
+            IsTracking = true;
+            TrackedPos = playerTransform.position;
+            
+            debugHound.SetTargetPosition(playerTransform.position);
+        }
+        
         #endregion
 
         #region fields
@@ -75,6 +109,8 @@ namespace GameContent.Management
         
         [SerializeField] private float suspicionDecreasePerSecond;
 
+        [SerializeField] private float minCameraTimeForSuspicion;
+        
         [SerializeField] private Transform playerTransform;
 
         [SerializeField] private Drone[] dronesManualPool;
@@ -83,8 +119,14 @@ namespace GameContent.Management
 
         [SerializeField] private MeshRenderer[] suspicionRenderer;
         
+        [SerializeField] private Hound debugHound;
+
+        private Vector3 _debugHoundStartPos;
+        
         private Pool<Hound> _houndPool;
 
+        private HeroHealth _playerHealth;
+        
         private float _suspicionLevel; //Game Core
 
         private float _suspicionDecreaseTimer;
