@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Systems;
 using GameContent.Actors;
 using GameContent.Controller.BaseMachine;
 using UnityEngine;
@@ -46,11 +47,25 @@ namespace GameContent.Controller.Player
             if (dataSo.inputData.jumpInput.action.WasPressedThisFrame())
                 playerMachine.PlayerModel.jumpBufferTime = dataSo.jumpData.jumpBufferTime;
 
-            if (dataSo.inputData.actionInput.action.WasPressedThisFrame())
+            /*if (dataSo.inputData.actionInput.action.WasPressedThisFrame())
             {
                 var r = Physics.Raycast(camRef.position, camRef.forward, out var hit, 1.5f, LayerMask.GetMask("Actor"));
                 if (r)
                     hit.transform.GetComponent<Actor>().OnAction(); //TODO a vomir et a changer
+            }*/
+            
+            if (dataSo.inputData.actionInput.action.WasPressedThisFrame())
+            {
+                Hero.Instance.TryInteract();
+            }
+
+            if (dataSo.inputData.actionInput.action.IsPressed() && Hero.Instance.IsHacking)
+            {
+                Hero.Instance.ContinueHack();
+            }
+            else if (dataSo.inputData.actionInput.action.WasReleasedThisFrame() && Hero.Instance.IsHacking)
+            {
+                Hero.Instance.CancelHack();
             }
             
             if (dataSo.inputData.crouchInput.action.IsPressed() && playerMachine.PlayerModel.currentHeightTarget > dataSo.moveData.crouchHeight - 1)

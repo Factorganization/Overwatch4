@@ -35,6 +35,8 @@ namespace GameContent.Controller.Player
                 {"move", new MoveState(go, ControllerState.Move, this)},
                 {"jump", new JumpState(go, ControllerState.Jump, this)},
                 {"fall", new FallState(go, ControllerState.Fall, this)},
+                {"wheel", new WheelState(go, ControllerState.Wheel,  this)},
+                {"map", new MapState(go, ControllerState.Map, this)}
             };
             
             _stateMachine.SetCallBacks((byte)ControllerState.Idle, "idle", pSD["idle"].OnInit, pSD["idle"].OnEnterState, 
@@ -48,6 +50,12 @@ namespace GameContent.Controller.Player
             
             _stateMachine.SetCallBacks((byte)ControllerState.Fall, "fall", pSD["fall"].OnInit, pSD["fall"].OnEnterState, 
                 pSD["fall"].OnUpdate, pSD["fall"].OnFixedUpdate, pSD["fall"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((byte)ControllerState.Wheel, "wheel", pSD["wheel"].OnInit, pSD["wheel"].OnEnterState,
+                pSD["wheel"].OnUpdate, pSD["wheel"].OnFixedUpdate, pSD["wheel"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((byte)ControllerState.Map, "map", pSD["map"].OnInit, pSD["map"].OnEnterState,
+                pSD["map"].OnUpdate, pSD["map"].OnFixedUpdate, pSD["map"].OnExitState, null);
             
             _stateMachine.InitMachine();
             

@@ -13,6 +13,8 @@ namespace GameContent.Management
 
         public bool IsTracking { get; private set; }
 
+        public float DetectionTime { get; set; }
+        
         #endregion
 
         #region methodes
@@ -21,6 +23,7 @@ namespace GameContent.Management
         {
             if (Manager is not null)
             {
+                Debug.Log("There was already a suspicion manager in the scene, duplicate was removed safely");
                 Destroy(gameObject);
                 return;
             }
@@ -46,7 +49,15 @@ namespace GameContent.Management
             if (_suspicionLevel > investigationLevel && !IsInvestigating)
             {
                 IsInvestigating = true;
-                //TODO ca cours
+                
+                
+            }
+
+            if (_suspicionLevel > trackingLevel && !IsTracking)
+            {
+                IsTracking = true;
+                
+                
             }
         }
 
@@ -60,6 +71,8 @@ namespace GameContent.Management
 
         [SerializeField] private float investigationLevel;
 
+        [SerializeField] private float trackingLevel;
+        
         [SerializeField] private float suspicionDecreasePerSecond;
 
         [SerializeField] private Transform playerTransform;
@@ -68,6 +81,8 @@ namespace GameContent.Management
 
         [SerializeField] private PoolData<Hound> houndPoolData;
 
+        [SerializeField] private MeshRenderer[] suspicionRenderer;
+        
         private Pool<Hound> _houndPool;
 
         private float _suspicionLevel; //Game Core

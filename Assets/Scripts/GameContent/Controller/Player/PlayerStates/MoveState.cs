@@ -31,6 +31,8 @@ namespace GameContent.Controller.Player.PlayerStates
             OnFall();
             OnIdle();
             OnJump();
+            OnMap();
+            OnWheel();
             
             OnSprint();
             return 0;
@@ -62,6 +64,18 @@ namespace GameContent.Controller.Player.PlayerStates
         {
             if (inputDir.sqrMagnitude <= 0)
                 stateMachine.SwitchState("idle");
+        }
+
+        private void OnMap()
+        {
+            if (dataSo.inputData.mapInput.action.WasPressedThisFrame())
+                stateMachine.SwitchState("map");
+        }
+        
+        private void OnWheel()
+        {
+            if (dataSo.inputData.wheelInput.action.WasPressedThisFrame())
+                stateMachine.SwitchState("wheel");
         }
         
         private void OnFall()
