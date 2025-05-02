@@ -20,10 +20,8 @@ namespace GameContent.Actors.EnemySystems.Seekers
         public override void OnUpdate()
         {
             _atkTimer += Time.deltaTime;
-
-            Debug.Log(Vector3.Distance(transform.position, playerTransform.position));
             
-            if (Vector3.Distance(transform.position, playerTransform.position) < 10)
+            if (Vector3.Distance(transform.position, playerTransform.position) < 10 && Vector3.Distance(transform.position, SuspicionManager.Manager.StartDebugPos) > 2)
             {
                 _navMeshAgent.destination = playerTransform.position;
                 SuspicionManager.Manager.DetectionTime += 1;
@@ -31,7 +29,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
             
             if (Vector3.Distance(transform.position, playerTransform.position) < 2.5f)
             {
-                if (_atkTimer > 2)
+                if (_atkTimer > 2 && SuspicionManager.Manager.IsTracking)
                 {
                     _atkTimer = 0;
                     SuspicionManager.Manager.PlayerHealth.TakeDamage(10);

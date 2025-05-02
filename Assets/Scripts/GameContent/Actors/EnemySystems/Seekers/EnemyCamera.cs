@@ -177,8 +177,8 @@ namespace GameContent.Actors.EnemySystems.Seekers
                     return;
                 }
                 
-                cameraRotation.angleRemains = -cameraRotation.additionalStepData.stepNumbers * cameraRotation.additionalStepData.angle;
-                cameraRotation.currentSpeedSign = -1;
+                cameraRotation.currentSpeedSign *= -1;
+                cameraRotation.angleRemains = cameraRotation.currentSpeedSign * cameraRotation.additionalStepData.stepNumbers * cameraRotation.additionalStepData.angle;
                 return;
             }
             
