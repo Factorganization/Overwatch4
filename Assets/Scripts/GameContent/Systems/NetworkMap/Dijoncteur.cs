@@ -26,16 +26,17 @@ public class Dijoncteur : HackableJunction
 
     IEnumerator PowerShortage()
     {
-        foreach (var cam in map.MapLink)
+        for (int i = 0; i < map.MapLink.Count; i++)
         {
-            cam.UnlinkDevice();
+            map.MapLink[i].UnlinkDevice();
         }
         yield return new WaitForSeconds(10f);
-        foreach (var cam in map.MapLink)
+        for (int i = 0; i < map.MapLink.Count; i++)
         {
-            cam.UnlinkDevice();
+            map.MapLink[i].UnlinkDevice();
         }
         yield return new WaitForSeconds(_coolDownTime);
         _onCooldown = false;
+        _alrHacked = false;
     }
 }
