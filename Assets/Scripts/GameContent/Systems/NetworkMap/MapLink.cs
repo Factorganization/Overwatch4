@@ -1,5 +1,3 @@
-using System;
-using GameContent.Actors.EnemySystems;
 using GameContent.Actors.EnemySystems.Seekers;
 using GameContent.Management;
 using TMPro;
@@ -13,6 +11,8 @@ public class MapLink : MonoBehaviour
      [SerializeField] private NetworkNode _linkedNode;
      [SerializeField] private EnemyCamera _enemyCamera;
      [SerializeField] private float _suspicionValue;
+
+     public EnemyCamera EnemyCamera { get { return _enemyCamera; } }
 
      private void Awake()
      {
@@ -45,6 +45,7 @@ public class MapLink : MonoBehaviour
      public void UnlinkDevice()
      {
           _enemyCamera.IsActive = !_enemyCamera.IsActive;
+        Debug.Log($"{_enemyCamera} is {_enemyCamera.IsActive}");
           SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 }
