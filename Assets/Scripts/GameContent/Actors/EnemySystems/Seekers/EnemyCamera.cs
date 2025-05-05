@@ -19,7 +19,9 @@ namespace GameContent.Actors.EnemySystems.Seekers
                 coneRenderer.material.color = !isActive ? Color.clear : new Color(1, 1, 1, 0.2f);
             }
         }
-        
+
+        public Transform BaitTarget => baitTarget ?? transform;
+
         #endregion
         
         #region methodes
@@ -208,6 +210,8 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
         #region fields
 
+        [SerializeField] private Transform baitTarget;
+        
         [SerializeField] private MeshRenderer coneRenderer;
 
         [SerializeField] private DecalProjector camDecalProjector;
