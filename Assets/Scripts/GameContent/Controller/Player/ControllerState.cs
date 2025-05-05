@@ -5,6 +5,8 @@
         Idle,
         Move,
         Jump,
-        Fall
+        Fall,
+        Wheel,
+        Map
     }
 }
