@@ -4,12 +4,27 @@ namespace GameContent.Actors
 {
     public abstract class Actor : MonoBehaviour
     {
+        #region properties
+        
+        public virtual bool IsActive
+        {
+            get => isActive;
+            set => isActive = value;
+        }
+
+        #endregion
+        
         #region methodes
 
-        public abstract void Init(Transform player);
+        public virtual void Init(Transform player)
+        {
+            playerTransform = player;
+        }
         
         public abstract void OnUpdate();
 
+        public abstract void OnFixedUpdate();
+        
         public virtual void OnAction()
         {
         }
@@ -19,6 +34,8 @@ namespace GameContent.Actors
         #region fields
 
         protected Transform playerTransform;
+
+        protected bool isActive;
 
         #endregion
     }

@@ -33,6 +33,10 @@ namespace GameContent.Controller.Player
         public InputActionReference crouchInput;
 
         public InputActionReference actionInput;
+        
+        public InputActionReference mapInput;
+        
+        public InputActionReference wheelInput;
     }
 
     [System.Serializable]
