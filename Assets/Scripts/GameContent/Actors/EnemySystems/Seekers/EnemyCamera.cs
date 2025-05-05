@@ -1,6 +1,8 @@
 ﻿using System;
 using GameContent.ActorViews.Player;
+using GameContent.Management;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace GameContent.Actors.EnemySystems.Seekers
 {
@@ -30,6 +32,11 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
             foreach (var c in cameraRotations)
                 c.Init(gameObject);
+
+            _pBDecal = new MaterialPropertyBlock();
+            _pBCone = new MaterialPropertyBlock();
+            
+            coneRenderer.GetPropertyBlock(_pBCone);
         }
 
         public override void OnUpdate()
@@ -50,10 +57,16 @@ namespace GameContent.Actors.EnemySystems.Seekers
                     _playerView.SightCount--;
                     break;
             }
+
+            if (s)
+            {
+                SuspicionManager.Manager.DetectionTime += Time.deltaTime;
+            }
         }
 
         public override void OnFixedUpdate()
         {
+            HandleGraphicAdaptation();
         }
 
         private bool HasPlayerInSight()
@@ -164,8 +177,8 @@ namespace GameContent.Actors.EnemySystems.Seekers
                     return;
                 }
                 
-                cameraRotation.angleRemains = -cameraRotation.additionalStepData.stepNumbers * cameraRotation.additionalStepData.angle;
-                cameraRotation.currentSpeedSign = -1;
+                cameraRotation.currentSpeedSign *= -1;
+                cameraRotation.angleRemains = cameraRotation.currentSpeedSign * cameraRotation.additionalStepData.stepNumbers * cameraRotation.additionalStepData.angle;
                 return;
             }
             
@@ -174,12 +187,34 @@ namespace GameContent.Actors.EnemySystems.Seekers
             
             cameraRotation.angleRemains = cameraRotation.additionalStepData.angle;
         }
+
+        private void HandleGraphicAdaptation()
+        {
+            if (SuspicionManager.Manager.IsTracking)
+            {
+                _pBCone.SetFloat(SpeedFlash, 20);
+                coneRenderer.SetPropertyBlock(_pBCone);
+                camDecalProjector.material = flashCamDecal;
+            }
+            else
+            {
+                _pBCone.SetFloat(SpeedFlash, 0);
+                coneRenderer.SetPropertyBlock(_pBCone);
+                camDecalProjector.material = baseCamDecal;
+            }
+        }
         
         #endregion
 
         #region fields
 
         [SerializeField] private MeshRenderer coneRenderer;
+
+        [SerializeField] private DecalProjector camDecalProjector;
+        
+        [SerializeField] private Material baseCamDecal;
+        
+        [SerializeField] private Material flashCamDecal;
         
         [SerializeField] private CableLink cableLinkRef;
 
@@ -194,7 +229,13 @@ namespace GameContent.Actors.EnemySystems.Seekers
         
         private PlayerView _playerView;
         
+        private MaterialPropertyBlock _pBCone;
+        
+        private MaterialPropertyBlock _pBDecal;
+        
         private bool _inSight;
+        
+        private static readonly int SpeedFlash = Shader.PropertyToID("_Speed_Flash");
 
         #endregion
     }

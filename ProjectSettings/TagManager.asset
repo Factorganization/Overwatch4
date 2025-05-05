@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Water
   - UI
+  - Interactible
   - 
   - 
   - 
@@ -25,9 +26,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - WallNoRender
+  - NoCollide
   - 
   - 
   - 

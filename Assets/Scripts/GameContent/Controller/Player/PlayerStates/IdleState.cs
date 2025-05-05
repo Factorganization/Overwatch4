@@ -29,6 +29,9 @@ namespace GameContent.Controller.Player.PlayerStates
             OnFall();
             OnJump();
             OnMove();
+            OnMap();
+            OnWheel();
+            
             return 0;
         }
 
@@ -52,6 +55,18 @@ namespace GameContent.Controller.Player.PlayerStates
                 stateMachine.SwitchState("jump");
         }
 
+        private void OnMap()
+        {
+            if (dataSo.inputData.mapInput.action.WasPressedThisFrame())
+                stateMachine.SwitchState("map");
+        }
+        
+        private void OnWheel()
+        {
+            if (dataSo.inputData.wheelInput.action.WasPressedThisFrame())
+                stateMachine.SwitchState("wheel");
+        }
+        
         private void OnFall()
         {
             if (CheckGround())

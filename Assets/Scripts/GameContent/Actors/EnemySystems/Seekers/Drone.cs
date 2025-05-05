@@ -1,4 +1,5 @@
-﻿using GameContent.Actors.ActorData;
+﻿using DG.Tweening;
+using GameContent.Actors.ActorData;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,16 +14,31 @@ namespace GameContent.Actors.EnemySystems.Seekers
         {
             base.Init(player);
             
+            IsActive = true;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _currentWaypoint = waypoints[0].position;
+            _currentWaypointIndex = 0;
+            transform.DOMove(_currentWaypoint, 5f);
         }
         
         public override void OnUpdate()
         {
+            HandleWayDist();
         }
 
         public override void OnFixedUpdate()
         {
+        }
+
+        private void HandleWayDist()
+        {
+            if (Vector3.Distance(transform.position, _currentWaypoint) > 0.1f)
+                return;
+
+            _currentWaypointIndex = (_currentWaypointIndex + 1) % waypoints.Length;
+            _currentWaypoint = waypoints[_currentWaypointIndex].position;
+            
+            transform.DOMove(_currentWaypoint, 5f);
         }
         
         #endregion
@@ -34,6 +50,8 @@ namespace GameContent.Actors.EnemySystems.Seekers
         [SerializeField] private Transform[] waypoints;
 
         private Vector3 _currentWaypoint;
+        
+        private int _currentWaypointIndex;
         
         private NavMeshAgent _navMeshAgent;
         
