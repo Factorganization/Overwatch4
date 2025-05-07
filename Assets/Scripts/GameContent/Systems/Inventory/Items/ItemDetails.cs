@@ -11,6 +11,8 @@ namespace Systems.Inventory
     public enum Action
     {
         None,
+        Heal,
+        Recharge,
     }
     
     [CreateAssetMenu(fileName = "New Item", menuName = "Scriptable Objects/ItemDetails")]
@@ -33,6 +35,23 @@ namespace Systems.Inventory
         public Item CreateItem(int quantity)
         {
             return new Item(this, quantity);
+        }
+
+        public void OnAction()
+        {
+            switch (action)
+            {
+                case Action.None:
+                    break;
+                case Action.Heal:
+                    Hero.Instance.Health.Heal(10);
+                    break;
+                case Action.Recharge:
+                    Debug.Log("Recharge");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

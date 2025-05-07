@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: MedKit
   type: 1
-  action: 0
+  action: 1
   maxStack: 3
   id:
     Part1: 434756984
