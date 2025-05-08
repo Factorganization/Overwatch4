@@ -23,4 +23,10 @@ MonoBehaviour:
       additionalScenePath: SC_GA/
   - sceneGroupName: OtherTest
     scenePaths: []
-  currentSceneGroupName: TestGroup
+  - sceneGroupName: SecondPlayable
+    scenePaths:
+    - scene: {fileID: 102900000, guid: 66efb0240c117004183b458f91c6bc42, type: 3}
+      additionalScenePath: 
+    - scene: {fileID: 102900000, guid: b095ea755260d7243908e487f3ee517b, type: 3}
+      additionalScenePath: 
+  currentSceneGroupName: SecondPlayable
