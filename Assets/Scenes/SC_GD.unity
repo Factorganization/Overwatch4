@@ -2109,6 +2109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraBundle
       objectReference: {fileID: 0}
+    - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5716971086962009281, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 321.43
@@ -2886,7 +2890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &157207113
 Light:
   m_ObjectHideFlags: 0
@@ -6552,6 +6556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Disjoncteur
       objectReference: {fileID: 0}
+    - target: {fileID: 2519305148377359953, guid: e04818c839e17e545890b19571af0f86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8361203822356853934, guid: e04818c839e17e545890b19571af0f86, type: 3}
       propertyPath: m_LocalPosition.x
       value: 377.2
@@ -8699,6 +8707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraBundle (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5716971086962009281, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 421.84
@@ -10385,6 +10397,10 @@ PrefabInstance:
     - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_Name
       value: CameraBundle (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5716971086962009281, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13329,6 +13345,10 @@ PrefabInstance:
     - target: {fileID: 4525328290561387222, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
       propertyPath: m_Name
       value: Junction (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4525328290561387222, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5360638721890552683, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
       propertyPath: map
@@ -20305,6 +20325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraBundle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5716971086962009281, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 356.06
@@ -22449,6 +22473,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraBundle (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5716971086962009281, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 479.78986
@@ -24282,6 +24310,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Jonction
       objectReference: {fileID: 0}
+    - target: {fileID: 8323785941541240955, guid: 34752b64da4986d4cb66c78ecdd71cc6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25290,6 +25322,10 @@ PrefabInstance:
     - target: {fileID: 8476932264926811862, guid: 18346e1b8983bae45b65ea703a024033, type: 3}
       propertyPath: m_Name
       value: Disjoncteur
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476932264926811862, guid: 18346e1b8983bae45b65ea703a024033, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32381,6 +32417,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraBundle (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3922030808357333770, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5716971086962009281, guid: c93839e3bf87c5e418ebcc3f213ba53a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 465.4149
@@ -33574,6 +33614,10 @@ PrefabInstance:
     - target: {fileID: 8323785941541240955, guid: 34752b64da4986d4cb66c78ecdd71cc6, type: 3}
       propertyPath: m_Name
       value: SM_Jonction (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323785941541240955, guid: 34752b64da4986d4cb66c78ecdd71cc6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39939,6 +39983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Junction
       objectReference: {fileID: 0}
+    - target: {fileID: 4525328290561387222, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360638721890552683, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
       propertyPath: map
       value: 
@@ -42860,6 +42908,10 @@ PrefabInstance:
     - target: {fileID: 4767263042583561482, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767263042583561482, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8121120793146260742, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
       propertyPath: playerTransform
