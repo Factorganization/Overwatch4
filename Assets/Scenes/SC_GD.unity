@@ -4307,7 +4307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3237046901680341794, guid: f743ab4414a40144596fe884be5cffd2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -8.5
+      value: -8.500061
       objectReference: {fileID: 0}
     - target: {fileID: 3687165252664609092, guid: f743ab4414a40144596fe884be5cffd2, type: 3}
       propertyPath: _enemyCamera
@@ -41029,7 +41029,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 2
+  antialiasing: 3
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
