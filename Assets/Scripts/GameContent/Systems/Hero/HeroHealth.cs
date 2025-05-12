@@ -23,6 +23,16 @@ public class HeroHealth : MonoBehaviour
         }
         GameUIManager.Instance.UpdateHealth();
     }
+    
+    public void Heal(float amount)
+    {
+        _currentHealth += amount;
+        if (_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+        GameUIManager.Instance.UpdateHealth();
+    }
 
     private void Die()
     {

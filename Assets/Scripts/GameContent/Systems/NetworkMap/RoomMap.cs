@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,4 +9,12 @@ public class RoomMap : MonoBehaviour
     
     public List<NetworkNode> Nodes => _nodes;
     public List<MapLink> MapLink => _mapLink;
+
+    private void Start()
+    {
+        foreach(MapLink mapLink in _mapLink)
+        {
+            mapLink.RoomMap = this;
+        }
+    }
 }

@@ -9,9 +9,16 @@ public class MapLink : MonoBehaviour
      [SerializeField] private TMP_InputField _linkNameInputField;
      [SerializeField] private Button _sabotageButton;
      [SerializeField] private NetworkNode _linkedNode;
-     [SerializeField] private EnemyCamera _enemyCamera;
      [SerializeField] private float _suspicionValue;
+     
+     private RoomMap _roomMap;
+     private EnemyCamera _enemyCamera;
 
+     public RoomMap RoomMap
+     {
+          get => _roomMap;
+          set => _roomMap = value;
+     }
      public EnemyCamera EnemyCamera { get { return _enemyCamera; } }
 
      private void Awake()
@@ -26,26 +33,32 @@ public class MapLink : MonoBehaviour
           _linkNameInputField.text = _linkedNode.nodeId;
      }
 
+     // Verify if the Id is correct, if it's not correct,
+     // it's will change the information that the camera will send to the processor
      private void VerifyID(string playerInput)
      {
           if (_linkedNode.type != NodeType.Device) return;
           
           if (_linkNameInputField.text != _linkedNode.nodeId)
           {
-               _enemyCamera.IsActive = false;
-          }
-          else
-          {
-               _enemyCamera.IsActive = true;
+               for (int i = 0; i < _roomMap.MapLink.Count; i++)
+               {
+                    if (_roomMap.MapLink[i]._linkedNode.nodeId == _linkNameInputField.text)
+                    {
+                         //SuspicionManager.Manager.StartInvestigation(_roomMap.MapLink[i].EnemyCamera.BaitTarget);
+                         return;
+                    }
+                    
+                    SuspicionManager.Manager.AddSuspicion(_suspicionValue);
+               }
           }
           
-          SuspicionManager.Manager.AddSuspicion(_suspicionValue);
+          //SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 
      public void UnlinkDevice()
      {
           _enemyCamera.IsActive = !_enemyCamera.IsActive;
-        Debug.Log($"{_enemyCamera} is {_enemyCamera.IsActive}");
           SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 }
