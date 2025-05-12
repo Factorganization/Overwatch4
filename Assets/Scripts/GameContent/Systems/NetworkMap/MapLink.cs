@@ -12,7 +12,7 @@ public class MapLink : MonoBehaviour
      [SerializeField] private float _suspicionValue;
      
      private RoomMap _roomMap;
-     [SerializeField] private EnemyCamera _enemyCamera;
+     private EnemyCamera _enemyCamera;
 
      public RoomMap RoomMap
      {

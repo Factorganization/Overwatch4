@@ -59,7 +59,7 @@ namespace GameContent.Controller.Player
                 Hero.Instance.TryInteract();
             }
 
-            if (dataSo.inputData.actionInput.action.IsPressed())
+            if (dataSo.inputData.actionInput.action.WasPressedThisFrame())
             {
                 Hero.Instance.UseEquippedItem();
             }

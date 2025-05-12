@@ -43,12 +43,16 @@ namespace Systems.Inventory
             {
                 case Action.None:
                     break;
-                case Action.Heal:
-                    Hero.Instance.Health.Heal(10);
+                case Action.Heal: 
+                    if (Inventory.Instance.Controller.Model.Items[1].quantity <= 0) return;
+                    Hero.Instance.Health.Heal(25);
+                    Inventory.Instance.Controller.SubtractItem(this,1);
                     Debug.Log("Heal");
                     break;
                 case Action.Recharge:
                     Debug.Log("Recharge");
+                    if (Inventory.Instance.Controller.Model.Items[2].quantity <= 0) return;
+                    Inventory.Instance.Controller.SubtractItem(this,1);
                     break;
                 default:
                     break;
