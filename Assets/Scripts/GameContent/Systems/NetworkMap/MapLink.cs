@@ -45,15 +45,14 @@ public class MapLink : MonoBehaviour
                {
                     if (_roomMap.MapLink[i]._linkedNode.nodeId == _linkNameInputField.text)
                     {
-                         //SuspicionManager.Manager.StartInvestigation(_roomMap.MapLink[i].EnemyCamera.BaitTarget);
+                         // Will change the information that the camera will send to the processor
+                         _linkedNode._connectedNodes = _roomMap.MapLink[i]._linkedNode._connectedNodes;
                          return;
                     }
-                    
-                    SuspicionManager.Manager.AddSuspicion(_suspicionValue);
                }
           }
           
-          //SuspicionManager.Manager.AddSuspicion(_suspicionValue);
+          SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 
      public void UnlinkDevice()

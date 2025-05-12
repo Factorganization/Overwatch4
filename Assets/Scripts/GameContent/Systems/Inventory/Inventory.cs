@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Systems.Persistence;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
 
 namespace Systems.Inventory {
     public class Inventory : MonoBehaviour, IBind<InventoryData>
@@ -29,23 +26,6 @@ namespace Systems.Inventory {
                 .WithCapacity(capacity)
                 .Build();
             Instance = this;
-        }
-
-        public void Update()
-        {
-            // Temporaire pour ouvrir et fermer l'inventaire
-            /*if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                radialMenu.Open();
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                radialMenu.Close();
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }*/
         }
 
         public void Bind(InventoryData data)

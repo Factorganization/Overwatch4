@@ -87,6 +87,21 @@ namespace Systems.Inventory {
             }
         }
         
+        public void SubtractItem(ItemDetails itemDetails, int quantity) {
+            foreach (var item in model.Items.items) 
+            {
+                if (item.details != itemDetails) continue;
+                
+                if (item.details.name.Equals(itemDetails.name)) {
+                    if (item.quantity <= 0) return;
+                    Debug.Log(quantity);
+                    item.quantity -= quantity;
+                    Inventory.Instance.RadialMenu.RefreshVisual();
+                    return;
+                }
+            }
+        }
+        
         #region Builder
         
         public class Builder {
