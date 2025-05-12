@@ -59,6 +59,11 @@ namespace GameContent.Controller.Player
                 Hero.Instance.TryInteract();
             }
 
+            if (dataSo.inputData.actionInput.action.IsPressed())
+            {
+                Hero.Instance.UseEquippedItem();
+            }
+
             if (dataSo.inputData.actionInput.action.IsPressed() && Hero.Instance.IsHacking)
             {
                 Hero.Instance.ContinueHack();

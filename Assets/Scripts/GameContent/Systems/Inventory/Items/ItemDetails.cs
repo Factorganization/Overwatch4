@@ -37,7 +37,7 @@ namespace Systems.Inventory
             return new Item(this, quantity);
         }
 
-        public void OnAction()
+        public virtual void OnAction()
         {
             switch (action)
             {
@@ -45,6 +45,7 @@ namespace Systems.Inventory
                     break;
                 case Action.Heal:
                     Hero.Instance.Health.Heal(10);
+                    Debug.Log("Heal");
                     break;
                 case Action.Recharge:
                     Debug.Log("Recharge");

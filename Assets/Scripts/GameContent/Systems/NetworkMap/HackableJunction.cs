@@ -1,3 +1,4 @@
+using GameContent.Management;
 using Systems.Inventory.Interface;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class HackableJunction : MonoBehaviour, IInteractible
     [SerializeField] protected RoomMap map;
     [SerializeField] protected float _hackingTime;
     [SerializeField] protected string _interactibleName;
+    [SerializeField] protected float _suspicionAmount;
         
     public float HackingTime => _hackingTime;
     public string InteractibleName => _interactibleName;
@@ -17,7 +19,7 @@ public class HackableJunction : MonoBehaviour, IInteractible
         _alrHacked = false;
     }
 
-    public void OnInteract() 
+    public virtual void OnInteract() 
     {
         if (_alrHacked == false) OnHack();
     }
@@ -26,5 +28,6 @@ public class HackableJunction : MonoBehaviour, IInteractible
     {
         _alrHacked = true;
         NetworkMapController.Instance.RevealRoom(map);
+        SuspicionManager.Manager.AddSuspicion(_suspicionAmount);
     }
 }

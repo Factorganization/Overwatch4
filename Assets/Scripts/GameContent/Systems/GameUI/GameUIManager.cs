@@ -34,7 +34,7 @@ public class GameUIManager : MonoBehaviour
     
     public void UpdateHealth()
     {
-        if (Hero.Instance.Health != null)
+        if (Hero.Instance.Health)
         {
             _healthText.text = $"Health: {Hero.Instance.Health.CurrentHealth}/{Hero.Instance.Health.MaxHealth}";
         }

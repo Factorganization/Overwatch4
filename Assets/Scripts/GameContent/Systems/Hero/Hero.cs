@@ -23,7 +23,7 @@ namespace Systems
         [SerializeField] private MultiTool _multiToolObject;
         
         [Header("Modifiable Variables")]
-        [SerializeField] private ItemDetails _currentEquipedItem;
+        [SerializeField] private ItemDetails _currentEquippedItem;
         [SerializeField] private float _interactDistance;
         
         private HackableJunction _currentJunction;
@@ -39,8 +39,8 @@ namespace Systems
         
         public ItemDetails CurrentEquipedItem
         {
-            get => _currentEquipedItem;
-            set => _currentEquipedItem = value;
+            get => _currentEquippedItem;
+            set => _currentEquippedItem = value;
         }
 
         private void Awake()
@@ -84,9 +84,16 @@ namespace Systems
             }
         }
 
+        public void UseEquippedItem()
+        {
+            if (_currentEquippedItem == null) return;
+
+            _currentEquippedItem.OnAction();
+        }
+
         public void TryInteract()
         {
-            if (!_currentEquipedItem) return;
+            if (!_currentEquippedItem) return;
 
 
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
@@ -94,7 +101,7 @@ namespace Systems
             {
                 var interactible = hit.collider.GetComponent<IInteractible>();
 
-                if (_currentEquipedItem.type == Type.MultiTool)
+                if (_currentEquippedItem.type == Type.MultiTool)
                 {
                     if (interactible is HackableJunction junction && junction._alrHacked == false)
                     {
