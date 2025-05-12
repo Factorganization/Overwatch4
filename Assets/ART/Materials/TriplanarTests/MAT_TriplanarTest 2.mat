@@ -99,6 +99,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Metalic:
+        m_Texture: {fileID: 2800000, guid: 63c60d8585d45e7439d5069a1152d59e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normal:
         m_Texture: {fileID: 2800000, guid: 41df4fe2933924142bda27f0d4735f66, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -121,6 +125,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Side_2:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Smoothness:
+        m_Texture: {fileID: 2800000, guid: 4965121ee726f3d43ac56661fd30adb2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
