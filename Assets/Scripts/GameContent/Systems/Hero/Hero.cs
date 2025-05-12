@@ -11,6 +11,8 @@ namespace Systems
 {
     public class Hero : MonoBehaviour, IBind<PlayerData>
     {
+        #region Variables
+
         public static Hero Instance;
         
         [field: SerializeField]public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid();
@@ -31,7 +33,9 @@ namespace Systems
         private float _currentHackTimer;
         private bool _isHacking;
         
+        [Header("Public Getters/Setters")]
         public HeroHealth Health => _health;
+        public MultiTool MultiToolObject => _multiToolObject;
         
         public bool IsHacking => _isHacking;
 
@@ -42,6 +46,10 @@ namespace Systems
             get => _currentEquippedItem;
             set => _currentEquippedItem = value;
         }
+
+        #endregion
+
+        #region Methods
 
         private void Awake()
         {
@@ -150,6 +158,9 @@ namespace Systems
             _hackProgressImage.fillAmount = 0;
             _hackProgressImage.gameObject.SetActive(false);
         }
+
+        #endregion
+        
     }
 
     [Serializable]

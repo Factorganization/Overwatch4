@@ -44,14 +44,17 @@ namespace Systems.Inventory
                 case Action.None:
                     break;
                 case Action.Heal: 
-                    if (Inventory.Instance.Controller.Model.Items[1].quantity <= 0) return;
+                    if (Inventory.Instance.Controller.Model.Items[1].quantity <= 0 
+                        || Hero.Instance.Health.CurrentHealth >= Hero.Instance.Health.MaxHealth) return;
+                    
                     Hero.Instance.Health.Heal(25);
                     Inventory.Instance.Controller.SubtractItem(this,1);
-                    Debug.Log("Heal");
                     break;
                 case Action.Recharge:
-                    Debug.Log("Recharge");
-                    if (Inventory.Instance.Controller.Model.Items[2].quantity <= 0) return;
+                    if (Inventory.Instance.Controller.Model.Items[2].quantity <= 0 
+                        || Hero.Instance.MultiToolObject.CurrentBattery >= Hero.Instance.MultiToolObject.MaxBattery) return;
+                    
+                    Hero.Instance.MultiToolObject.RechargeBattery(25);
                     Inventory.Instance.Controller.SubtractItem(this,1);
                     break;
                 default:

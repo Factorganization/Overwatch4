@@ -7,11 +7,13 @@ public class MultiTool : MonoBehaviour
     [SerializeField] private float _maxBattery;
     [SerializeField] private float _currentBattery;
 
-    public float Battery
+    public float CurrentBattery
     {
         get => _currentBattery;
         set => _currentBattery = value;
     }
+    
+    public float MaxBattery => _maxBattery;
     
     private void Start()
     {
@@ -32,6 +34,12 @@ public class MultiTool : MonoBehaviour
     
     public void RechargeBattery(float amount)
     {
+        if (_currentBattery >= _maxBattery)
+        {
+            Debug.Log("Battery is full");
+            _currentBattery = _maxBattery;
+            return;
+        }
         _currentBattery += amount;
     }
 }
