@@ -54,6 +54,7 @@ namespace GameContent.Controller.Player
                     hit.transform.GetComponent<Actor>().OnAction(); //TODO a vomir et a changer
             }*/
             
+            //TODO passer en interactState, no cam rota et move ralentit
             if (dataSo.inputData.actionInput.action.WasPressedThisFrame())
             {
                 Hero.Instance.TryInteract();
@@ -89,7 +90,7 @@ namespace GameContent.Controller.Player
 
         protected void HandleRotateInputGather()
         {
-            lookDir = dataSo.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
+            lookDir = dataSo.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime; //Deja corrigé sur correction de frame jump
         }
         
         protected void Move(float moveMultiplier)
