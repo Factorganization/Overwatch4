@@ -6,18 +6,19 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region methodes
 
+        [ContextMenu("Generate Nav Space")]
         private void Awake()
         {
-            _octree = new Octree(transform, worldObjs, minNodeSize, navGraph);
+            octree = new Octree(transform, worldObjs, minNodeSize, navGraph);
         }
 
         private void OnDrawGizmos()
         {
             if (view3dNavSpace)
-                _octree?.root.DrawNode();
+                octree?.root.DrawNode();
             
             if (view3dNavPath)
-                _octree?.graph.DrawGraph();
+                octree?.graph.DrawGraph();
         }
 
         #endregion
@@ -34,7 +35,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         public readonly Graph navGraph = new();
         
-        private Octree _octree;
+        [SerializeField] [HideInInspector] private Octree octree;
         
         #endregion
     }

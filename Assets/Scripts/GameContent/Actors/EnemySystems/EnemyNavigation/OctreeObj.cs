@@ -2,26 +2,27 @@
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
+    //[System.Serializable]
     public class OctreeObj
     {
         #region constructors
 
         public OctreeObj(Collider obj)
         {
-            _bounds = obj.bounds;
+            bounds = obj.bounds;
         }
 
         #endregion
 
         #region methodes
 
-        public bool Intersects(Bounds other) => _bounds.Intersects(other);
+        public bool Intersects(Bounds other) => bounds.Intersects(other);
 
         #endregion
         
         #region fields
 
-        private Bounds _bounds;
+        [SerializeField] private Bounds bounds;
 
         #endregion
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
+    [System.Serializable]
     public class Octree
     {
         #region constructors

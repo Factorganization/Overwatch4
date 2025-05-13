@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
+    [System.Serializable]
     public class OctreeNode
     {
         #region properties
@@ -18,7 +19,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             Id = nextId++;
             
             this.bounds = bounds; 
-            _minNodeSize = minNodeSize;
+            this.minNodeSize = minNodeSize;
 
             var newSize = bounds.size * 0.5f;
             var centerOffset = bounds.size * 0.25f;
@@ -42,7 +43,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         private void Divide(OctreeObj obj)
         {
-            if (bounds.size.x <= _minNodeSize)
+            if (bounds.size.x <= minNodeSize)
             {
                 _objs.Add(obj);
                 return;
@@ -53,7 +54,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
             for (var i = 0; i < 8; i++)
             {
-                children[i] ??= new OctreeNode(_childBounds[i], _minNodeSize);
+                children[i] ??= new OctreeNode(_childBounds[i], minNodeSize);
 
                 if (!obj.Intersects(_childBounds[i]))
                     continue;
@@ -68,7 +69,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         public void DrawNode()
         {
-            Gizmos.color = Color.Lerp(Color.blue, Color.green, _minNodeSize / bounds.size.x);
+            Gizmos.color = Color.Lerp(Color.blue, Color.green, minNodeSize / bounds.size.x);
             Gizmos.DrawWireCube(bounds.center, bounds.size);
 
             /* cube rouge outline obj intersectés, pas fou utile :/
@@ -101,10 +102,10 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         public Bounds bounds;
         
         private Bounds[] _childBounds = new Bounds[8];
-        
+
         public OctreeNode[] children;
 
-        private float _minNodeSize;
+        [SerializeField] [HideInInspector] public float minNodeSize;
 
         #endregion
     }
