@@ -37,17 +37,25 @@ namespace Systems.Inventory
             return new Item(this, quantity);
         }
 
-        public void OnAction()
+        public virtual void OnAction()
         {
             switch (action)
             {
                 case Action.None:
                     break;
-                case Action.Heal:
-                    Hero.Instance.Health.Heal(10);
+                case Action.Heal: 
+                    if (Inventory.Instance.Controller.Model.Items[1].quantity <= 0 
+                        || Hero.Instance.Health.CurrentHealth >= Hero.Instance.Health.MaxHealth) return;
+                    
+                    Hero.Instance.Health.Heal(25);
+                    Inventory.Instance.Controller.SubtractItem(this,1);
                     break;
                 case Action.Recharge:
-                    Debug.Log("Recharge");
+                    if (Inventory.Instance.Controller.Model.Items[2].quantity <= 0 
+                        || Hero.Instance.MultiToolObject.CurrentBattery >= Hero.Instance.MultiToolObject.MaxBattery) return;
+                    
+                    Hero.Instance.MultiToolObject.RechargeBattery(25);
+                    Inventory.Instance.Controller.SubtractItem(this,1);
                     break;
                 default:
                     break;

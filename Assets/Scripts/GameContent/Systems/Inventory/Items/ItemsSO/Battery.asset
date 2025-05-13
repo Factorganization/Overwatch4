@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Battery
   type: 1
-  action: 0
+  action: 2
   maxStack: 3
   id:
     Part1: 3670803739
