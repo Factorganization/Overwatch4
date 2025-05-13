@@ -6769,7 +6769,7 @@ MonoBehaviour:
   _health: {fileID: 376808269}
   _hackProgressImage: {fileID: 529123976}
   _multiToolObject: {fileID: 1545180365}
-  _currentEquipedItem: {fileID: 0}
+  _currentEquippedItem: {fileID: 0}
   _interactDistance: 1
 --- !u!1001 &381309458
 PrefabInstance:
@@ -35476,7 +35476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDetails: {fileID: 11400000, guid: f46767b420e78ae489498522f263e53c, type: 2}
-  _battery: 0
+  _maxBattery: 0
+  _currentBattery: 0
 --- !u!1 &1554277689
 GameObject:
   m_ObjectHideFlags: 0
