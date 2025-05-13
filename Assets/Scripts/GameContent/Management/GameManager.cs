@@ -9,7 +9,7 @@ namespace GameContent.Management
 
         private void Start()
         {
-            SceneManager.LoadScene("TestInventory", LoadSceneMode.Additive);
+            //SceneManager.LoadScene("TestInventory", LoadSceneMode.Additive);
         }
 
         #endregion
