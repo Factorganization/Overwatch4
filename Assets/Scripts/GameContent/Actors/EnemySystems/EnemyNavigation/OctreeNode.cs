@@ -6,7 +6,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     [System.Serializable]
     public class OctreeNode
     {
-        #region properties
+         #region properties
 
         public bool IsLeaf => children is null;
 

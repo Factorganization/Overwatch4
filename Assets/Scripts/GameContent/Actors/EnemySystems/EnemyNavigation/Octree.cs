@@ -44,6 +44,28 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             bounds.SetMinMax(bounds.center - size, bounds.center + size);
         }
 
+        public OctreeNode FindClosestNode(Vector3 position) => FindClosestNode(root, position);
+        public OctreeNode FindClosestNode(OctreeNode node, Vector3 position)
+        {
+            OctreeNode found = null;
+
+            for (var i = 0; i < node.children.Length; i++)
+            {
+                if (node.children[i].bounds.Contains(position))
+                {
+                    if (node.children[i].IsLeaf)
+                    {
+                        found = node.children[i];
+                        break;
+                    }
+
+                    found = FindClosestNode(node.children[i], position);
+                }
+            }
+
+            return found;
+        }
+        
         private void GetEmptyLeaves(OctreeNode node)
         {
             if (node.IsLeaf && node._objs.Count == 0)

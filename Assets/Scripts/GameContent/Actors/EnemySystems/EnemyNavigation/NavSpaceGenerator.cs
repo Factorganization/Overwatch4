@@ -4,6 +4,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
     public class NavSpaceGenerator : MonoBehaviour
     {
+        #region properties
+
+        public Octree Octree => octree;
+
+        #endregion
+        
         #region methodes
 
         [ContextMenu("Generate Nav Space")]
