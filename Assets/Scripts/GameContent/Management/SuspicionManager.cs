@@ -53,7 +53,7 @@ namespace GameContent.Management
             if (DetectionTime > minCameraTimeForSuspicion)
             {
                 DetectionTime = 0;
-                StartTrack();
+                //StartTrack();
             }
 
             if (IsTracking)
@@ -91,12 +91,12 @@ namespace GameContent.Management
 
         public void RemoveSuspicion(float value) => _suspicionLevel -= value;
 
-        private void StartTrack()
+        private void StartTrack(EnemyCamera cam)
         {
             IsTracking = true;
-            TrackedPos = playerTransform.position;
+            TrackedPos = cam.BaitTarget.position;
             
-            debugHound.SetTargetPosition(playerTransform.position);
+            debugHound.SetTargetPosition(cam.BaitTarget.position);
         }
         
         #endregion

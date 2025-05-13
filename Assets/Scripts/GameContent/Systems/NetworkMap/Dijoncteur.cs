@@ -12,7 +12,7 @@ public class Dijoncteur : HackableJunction
         _onCooldown = false;
     }
     
-    public new void OnInteract() 
+    public override void OnInteract() 
     {
         if (_onCooldown == false) OnHack();
     }
@@ -26,14 +26,14 @@ public class Dijoncteur : HackableJunction
 
     IEnumerator PowerShortage()
     {
-        for (int i = 0; i < map.MapLink.Count; i++)
+        foreach (var t in map.MapLink)
         {
-            map.MapLink[i].UnlinkDevice();
+            t.UnlinkDevice();
         }
         yield return new WaitForSeconds(10f);
-        for (int i = 0; i < map.MapLink.Count; i++)
+        foreach (var t in map.MapLink)
         {
-            map.MapLink[i].UnlinkDevice();
+            t.UnlinkDevice();
         }
         yield return new WaitForSeconds(_coolDownTime);
         _onCooldown = false;
