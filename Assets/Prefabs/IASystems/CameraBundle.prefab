@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1117321d7d466eb1b46e92ca557ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baitTarget: {fileID: 0}
   coneRenderer: {fileID: 4057541423110692431}
   camDecalProjector: {fileID: 5891300611399622726}
   baseCamDecal: {fileID: 2100000, guid: 99421fcf37336404ab67fd8789b7f6e7, type: 2}

@@ -46,6 +46,7 @@ public class MapLink : MonoBehaviour
                     if (_roomMap.MapLink[i]._linkedNode.nodeId == _linkNameInputField.text)
                     {
                          // Will change the information that the camera will send to the processor
+                         SuspicionManager.Manager.StartTrack(_roomMap.MapLink[i]._linkedNode.actor as EnemyCamera);
                          _linkedNode._connectedNodes = _roomMap.MapLink[i]._linkedNode._connectedNodes;
                          return;
                     }
