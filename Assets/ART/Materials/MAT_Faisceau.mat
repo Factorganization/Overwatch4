@@ -208,7 +208,7 @@ Material:
     - _ExcludeFromTUAndAA: 0
     - _Float: 2.68
     - _Float_1: 7.01
-    - _Fresnel_Power: 0
+    - _Fresnel_Power: -1.06
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -239,14 +239,14 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _PerPixelSorting: 0
-    - _Power: 1.15
+    - _Power: 0.06
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
-    - _ScaleNoise: 83.5
+    - _ScaleNoise: 84.75
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -256,7 +256,7 @@ Material:
     - _Speed: 1
     - _Speed_Flash: 0
     - _Speed_Simple_Noise: 0.05
-    - _Speed_Voronoi: 10
+    - _Speed_Voronoi: 1.8
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
