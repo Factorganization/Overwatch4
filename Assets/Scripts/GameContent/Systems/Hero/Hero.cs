@@ -102,8 +102,7 @@ namespace Systems
         public void TryInteract()
         {
             if (!_currentEquippedItem) return;
-
-
+            
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
             {
@@ -119,7 +118,9 @@ namespace Systems
                         
                         _hackProgressImage.gameObject.SetActive(true);
                         _hackProgressImage.fillAmount = 0;
+                        return;
                     }
+                    interactible?.OnInteract();
                     return;
                 }
                 

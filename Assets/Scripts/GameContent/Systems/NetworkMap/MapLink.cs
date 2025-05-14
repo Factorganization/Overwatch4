@@ -59,6 +59,7 @@ public class MapLink : MonoBehaviour
      public void UnlinkDevice()
      {
           _enemyCamera.IsActive = !_enemyCamera.IsActive;
-          SuspicionManager.Manager.AddSuspicion(_suspicionValue);
+          SuspicionManager.Manager.StartTrack(_linkedNode.actor as EnemyCamera);     
+          //SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 }
