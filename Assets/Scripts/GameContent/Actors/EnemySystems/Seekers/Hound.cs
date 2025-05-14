@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GameContent.Actors.ActorData;
 using GameContent.Actors.EnemySystems.EnemyNavigation;
+using GameContent.Management;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,14 +18,14 @@ namespace GameContent.Actors.EnemySystems.Seekers
             base.Init(player);
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
-            _graph = navSpace.navGraph;
+            /*_graph = navSpace.navGraph;
             _currentNode = GetClosestNode(transform.position);
-            GetRandomDestination();
+            GetRandomDestination();*/
         }
 
         public override void OnUpdate()
         {
-            if (_graph is null)
+            /*if (_graph is null)
                 return;
 
             if (_graph.PathLength == 0 || _currentWayPointId >= _graph.PathLength)
@@ -49,9 +50,9 @@ namespace GameContent.Actors.EnemySystems.Seekers
             else
             {
                 //GetRandomDestination();
-            }
+            }*/
             
-            /*_atkTimer += Time.deltaTime;
+            _atkTimer += Time.deltaTime;
             
             if (Vector3.Distance(transform.position, playerTransform.position) < 10 && Vector3.Distance(transform.position, SuspicionManager.Manager.StartDebugPos) > 2)
             {
@@ -74,7 +75,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
             if (Vector3.Distance(transform.position, playerTransform.position) > 10 && !SuspicionManager.Manager.IsTracking)
             {
                 _navMeshAgent.destination = SuspicionManager.Manager.StartDebugPos;
-            }*/
+            }
         }
 
         public override void OnFixedUpdate()
