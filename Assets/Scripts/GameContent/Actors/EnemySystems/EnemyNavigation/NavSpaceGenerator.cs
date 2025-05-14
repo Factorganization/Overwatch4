@@ -15,10 +15,10 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         [ContextMenu("Generate Nav Space")]
         private void Awake()
         {
-            octree = new Octree(transform, worldObjs, minNodeSize, navGraph);
+            octree = new Octree(transform, worldObjs, minNodeSize, navGraph, bakeBlockingLayer);
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             if (view3dNavSpace)
                 octree?.root.DrawNode();
@@ -38,6 +38,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         [SerializeField] private bool view3dNavSpace;
         
         [SerializeField] private bool view3dNavPath;
+        
+        [SerializeField] private LayerMask bakeBlockingLayer;
         
         public readonly Graph navGraph = new();
         

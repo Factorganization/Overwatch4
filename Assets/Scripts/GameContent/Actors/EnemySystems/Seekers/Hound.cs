@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using GameContent.Actors.ActorData;
 using GameContent.Actors.EnemySystems.EnemyNavigation;
 using GameContent.Management;
@@ -30,7 +30,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
             if (_graph.PathLength == 0 || _currentWayPointId >= _graph.PathLength)
             {
-                //GetRandomDestination();
+                GetRandomDestination();
                 return;
             }
 

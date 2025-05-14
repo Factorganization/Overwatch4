@@ -8,9 +8,10 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region constructors
 
-        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, Graph graph)
+        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, Graph graph, LayerMask bakeLayer)
         {
             this.graph = graph;
+            _bakeLayer = bakeLayer;
             
             CalculateBounds(parent, worldObjs);
             CreateTree(worldObjs, minNodeSize);
@@ -70,7 +71,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         {
             if (node.IsLeaf && node._objs.Count == 0)
             {
-                emptyLeaves.Add(node);
+                _emptyLeaves.Add(node);
                 graph.AddNode(node);
                 return;
             }
@@ -92,14 +93,22 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         private void GetEdges()
         {
-            foreach (var el in emptyLeaves)
+            foreach (var el in _emptyLeaves)
             {
-                foreach (var ol in emptyLeaves)
+                foreach (var ol in _emptyLeaves)
                 {
-                    if (el.bounds.Intersects(ol.bounds))
+                    var ray = new Ray(el.bounds.center, ol.bounds.center - el.bounds.center);
+                    var cast = Physics.Raycast(ray, 50, _bakeLayer);
+                    
+                    if (!cast)
                     {
                         graph.AddEdge(el, ol);
                     }
+                    
+                    /*if (el.bounds.Intersects(ol.bounds)) //TODO conditions
+                    {
+                        graph.AddEdge(el, ol);
+                    }*/
                 }
             }
         }
@@ -114,7 +123,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         public Graph graph;
         
-        private List<OctreeNode> emptyLeaves = new();
+        private List<OctreeNode> _emptyLeaves = new();
+        
+        private LayerMask _bakeLayer;
+        
+        private RaycastHit[] _emptyHits = new RaycastHit[1];
 
         #endregion
     }

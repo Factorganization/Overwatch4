@@ -77,6 +77,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                     return true;
                 }
                 
+                _closedList.Add(current);
+                
                 foreach (var e in current.edges)
                 {
                     var n = Equals(e.a, current) ? e.b : e.a;
@@ -150,10 +152,10 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         public void DrawGraph()
         {
             Gizmos.color = new Color(1, 0, 0, 0.25f);
-
             foreach (var e in edges)
                 Gizmos.DrawLine(e.a.octreeNode.bounds.center, e.b.octreeNode.bounds.center);
             
+            Gizmos.color = new Color(1, 0.45f, 0, 0.25f);
             foreach (var n in nodes.Values)
                 Gizmos.DrawWireSphere(n.octreeNode.bounds.center, 0.5f);
         }
