@@ -66230,15 +66230,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4883812955066025936, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 347.06
+      value: 425.04
       objectReference: {fileID: 0}
     - target: {fileID: 4883812955066025936, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.21
+      value: 14.09
       objectReference: {fileID: 0}
     - target: {fileID: 4883812955066025936, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -118.95
+      value: -94.99
       objectReference: {fileID: 0}
     - target: {fileID: 4883812955066025936, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_LocalRotation.w
@@ -66267,6 +66267,14 @@ PrefabInstance:
     - target: {fileID: 4883812955066025936, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001049155240398890, guid: 4a14e746ecfbd904495064842d132635, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001049155240398890, guid: 4a14e746ecfbd904495064842d132635, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8887626917426732834, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_Name
@@ -73581,7 +73589,7 @@ PrefabInstance:
       objectReference: {fileID: 376808268}
     - target: {fileID: 8121120793146260742, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
       propertyPath: managedActors.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8121120793146260742, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
       propertyPath: unmanagedActors.Array.size
@@ -73611,6 +73619,10 @@ PrefabInstance:
       propertyPath: 'managedActors.Array.data[5]'
       value: 
       objectReference: {fileID: 2089315984}
+    - target: {fileID: 8121120793146260742, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
+      propertyPath: 'managedActors.Array.data[6]'
+      value: 
+      objectReference: {fileID: 1558484196}
     - target: {fileID: 8121120793146260742, guid: 4ceb2d497ef2ac9429e7067a2eefa90a, type: 3}
       propertyPath: 'unmanagedActors.Array.data[0]'
       value: 
