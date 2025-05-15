@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_TriplanarTest 15
+  m_Name: MAT_TriplanarTest 19
   m_Shader: {fileID: -6465566751694194690, guid: 7dd0ce43264c56e4590283dba012ee84, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -104,7 +104,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metalic:
-        m_Texture: {fileID: 2800000, guid: f53c18a9ba9089641a5c069473a936de, type: 3}
+        m_Texture: {fileID: 2800000, guid: f1a9370dbf61abe4b9413c29673ee03e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -112,7 +112,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: c1682de19d87c124b92c350d08bcc4f5, type: 3}
+        m_Texture: {fileID: 2800000, guid: a4b50ef0014f2fa4a84f57307c74812a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -132,7 +132,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Smoothness:
-        m_Texture: {fileID: 2800000, guid: 75ee498c0c827a048a5977f5780431e6, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -152,7 +152,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: 53b7791c4aecc504594971c584376ebf, type: 3}
+        m_Texture: {fileID: 2800000, guid: f9efc9ace20ce7047bf4cca9a595f283, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
@@ -250,13 +250,13 @@ Material:
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
-    - _MainSmooth: 3.52
+    - _MainSmooth: 0.05
     - _MaterialID: 1
     - _MaterialTypeMask: 2
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
-    - _Nomral_boost: 0.44
+    - _Nomral_boost: 0
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _NormalStrenght: 0
@@ -276,7 +276,7 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
-    - _SecondSmoothness: 0.13
+    - _SecondSmoothness: 0
     - _SecondTextureHeight: 50
     - _SecondTextureThreshold: 0
     - _Smoothness: 0.5
@@ -302,7 +302,7 @@ Material:
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
-    - _Tiling: 0.21
+    - _Tiling: 0.33
     - _Tilling: 0.1
     - _TransmissionEnable: 1
     - _TransmissionMask: 1
