@@ -1,5 +1,6 @@
 using GameContent.Actors.EnemySystems.Seekers;
 using GameContent.Management;
+using Systems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,6 +47,7 @@ public class MapLink : MonoBehaviour
                     if (_roomMap.MapLink[i]._linkedNode.nodeId == _linkNameInputField.text)
                     {
                          // Will change the information that the camera will send to the processor
+                         SuspicionManager.Manager.StartTrack(_roomMap.MapLink[i]._linkedNode.actor as EnemyCamera);
                          _linkedNode._connectedNodes = _roomMap.MapLink[i]._linkedNode._connectedNodes;
                          return;
                     }
@@ -58,6 +60,8 @@ public class MapLink : MonoBehaviour
      public void UnlinkDevice()
      {
           _enemyCamera.IsActive = !_enemyCamera.IsActive;
-          SuspicionManager.Manager.AddSuspicion(_suspicionValue);
+          SuspicionManager.Manager.StartTrack(_linkedNode.actor as EnemyCamera);
+          Hero.Instance.MultiToolObject.ConsumeBattery(20);
+          //SuspicionManager.Manager.AddSuspicion(_suspicionValue);
      }
 }

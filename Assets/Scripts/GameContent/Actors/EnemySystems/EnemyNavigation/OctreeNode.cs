@@ -15,10 +15,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         public OctreeNode(Bounds bounds, float minNodeSize)
         {
-            Id = nextId++;
-            
             this.bounds = bounds; 
-            _minNodeSize = minNodeSize;
+            this._minNodeSize = minNodeSize;
 
             var newSize = bounds.size * 0.5f;
             var centerOffset = bounds.size * 0.25f;
@@ -44,7 +42,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         {
             if (bounds.size.x <= _minNodeSize)
             {
-                _objs.Add(obj);
+                objs.Add(obj);
                 return;
             }
 
@@ -63,48 +61,22 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             }
             
             if (intersectChild)
-                _objs.Add(obj);
-        }
-        
-        public void DrawNode()
-        {
-            Gizmos.color = Color.Lerp(Color.blue, Color.green, _minNodeSize / bounds.size.x);
-            Gizmos.DrawWireCube(bounds.center, bounds.size);
-
-            /* cube rouge outline obj intersectés, pas fou utile :/
-            foreach (var o in _objs)
-            {
-                if (o.Intersects(bounds))
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawCube(bounds.center, bounds.size);
-                }
-            }*/
-            
-            if (children is null)
-                return;
-            
-            foreach (var child in children)
-                child?.DrawNode();
+                objs.Add(obj);
         }
 
         #endregion
         
         #region fields
 
-        private static int nextId;
-        
-        public readonly int Id;
-        
-        public List<OctreeObj> _objs = new();
+        public readonly List<OctreeObj> objs = new();
 
         public Bounds bounds;
         
-        private Bounds[] _childBounds = new Bounds[8];
-        
+        private readonly Bounds[] _childBounds = new Bounds[8];
+
         public OctreeNode[] children;
 
-        private float _minNodeSize;
+        private readonly float _minNodeSize;
 
         #endregion
     }

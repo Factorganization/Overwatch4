@@ -91,7 +91,7 @@ namespace GameContent.Management
 
         public void RemoveSuspicion(float value) => _suspicionLevel -= value;
 
-        private void StartTrack(EnemyCamera cam)
+        public void StartTrack(EnemyCamera cam)
         {
             IsTracking = true;
             TrackedPos = cam.BaitTarget.position;

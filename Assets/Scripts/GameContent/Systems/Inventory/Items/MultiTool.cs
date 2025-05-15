@@ -25,7 +25,6 @@ public class MultiTool : MonoBehaviour
     {
         if (_currentBattery - amount < 0)
         {
-            Debug.Log("Battery is empty");
             return;
         }
         
@@ -36,7 +35,6 @@ public class MultiTool : MonoBehaviour
     {
         if (_currentBattery >= _maxBattery)
         {
-            Debug.Log("Battery is full");
             _currentBattery = _maxBattery;
             return;
         }

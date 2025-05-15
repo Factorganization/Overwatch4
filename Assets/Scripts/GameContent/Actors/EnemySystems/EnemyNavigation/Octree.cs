@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
@@ -7,15 +8,19 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region constructors
 
-        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, Graph graph)
+        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, NavGraph navGraph, LayerMask bakeLayer, NavSpaceData navSpaceData)
         {
-            this.graph = graph;
+            _navGraph = navGraph;
+            _bakeLayer = bakeLayer;
+            _navSpaceData = navSpaceData;
             
             CalculateBounds(parent, worldObjs);
             CreateTree(worldObjs, minNodeSize);
             
-            GetEmptyLeaves(root);
+            GetEmptyLeaves(_root);
             GetEdges();
+
+            BakeData();
         }
 
         #endregion
@@ -24,31 +29,53 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         private void CreateTree(Collider[] worldObjs, float minNodeSize)
         {
-            root = new OctreeNode(bounds, minNodeSize);
+            _root = new OctreeNode(_bounds, minNodeSize);
 
             foreach (var obj in worldObjs)
             {
-                root.Divide(obj);
+                _root.Divide(obj);
             }
         }
         
         private void CalculateBounds(Transform parent, Collider[] worldObjs)
         {
-            bounds.center = parent.position;
+            _bounds.center = parent.position;
             
             foreach (var worldObj in worldObjs)
-                bounds.Encapsulate(worldObj.bounds);
+                _bounds.Encapsulate(worldObj.bounds);
             
-            var size = Vector3.one * Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z) * 0.6f;
-            bounds.SetMinMax(bounds.center - size, bounds.center + size);
+            var size = Vector3.one * Mathf.Max(_bounds.size.x, _bounds.size.y, _bounds.size.z) * 0.6f;
+            _bounds.SetMinMax(_bounds.center - size, _bounds.center + size);
         }
 
+        //public OctreeNode FindClosestNode(Vector3 position) => FindClosestNode(_root, position);
+        /*public OctreeNode FindClosestNode(OctreeNode node, Vector3 position)
+        {
+            OctreeNode found = null;
+
+            for (var i = 0; i < node.children.Length; i++)
+            {
+                if (node.children[i].bounds.Contains(position))
+                {
+                    if (node.children[i].IsLeaf)
+                    {
+                        found = node.children[i];
+                        break;
+                    }
+
+                    found = FindClosestNode(node.children[i], position);
+                }
+            }
+
+            return found;
+        }*/
+        
         private void GetEmptyLeaves(OctreeNode node)
         {
-            if (node.IsLeaf && node._objs.Count == 0)
+            if (node.IsLeaf && node.objs.Count == 0)
             {
-                emptyLeaves.Add(node);
-                graph.AddNode(node);
+                _emptyLeaves.Add(node);
+                _navGraph.AddNode(node);
                 return;
             }
             
@@ -62,36 +89,60 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             {
                 for (var j = i + 1; j < node.children.Length; j++)
                 {
-                    graph.AddEdge(node.children[i], node.children[j]);
+                    _navGraph.AddEdge(node.children[i], node.children[j]);
                 }
             }
         }
 
         private void GetEdges()
         {
-            foreach (var el in emptyLeaves)
+            foreach (var el in _emptyLeaves)
             {
-                foreach (var ol in emptyLeaves)
+                foreach (var ol in _emptyLeaves)
                 {
-                    if (el.bounds.Intersects(ol.bounds))
+                    var ray = new Ray(el.bounds.center, ol.bounds.center - el.bounds.center);
+                    var cast = Physics.Raycast(ray, Vector3.Distance(el.bounds.center, ol.bounds.center), _bakeLayer);
+                    
+                    if (!cast)
+                        _navGraph.AddEdge(el, ol);
+                    
+                    /*if (el.bounds.Intersects(ol.bounds)) //TODO conditions
                     {
                         graph.AddEdge(el, ol);
-                    }
+                    }*/
                 }
             }
+        }
+
+        private void BakeData()
+        {
+            foreach (var n in _navGraph.nodes.Values)
+                _navSpaceData.AddNode(new SerializedOctreeNode(n));
+
+            _navSpaceData.nodes.Sort(CompareSerializedNodes);
+            
+            foreach (var e in _navGraph.edges)
+                _navSpaceData.AddEdge(new SerializedOctreeEdge(e));
         }
 
         #endregion
         
         #region fields
 
-        public OctreeNode root;
+        private OctreeNode _root;
+
+        private Bounds _bounds;
+
+        private readonly NavGraph _navGraph;
         
-        public Bounds bounds;
+        private readonly List<OctreeNode> _emptyLeaves = new();
         
-        public Graph graph;
-        
-        private List<OctreeNode> emptyLeaves = new();
+        private readonly LayerMask _bakeLayer;
+
+        private readonly NavSpaceData _navSpaceData;
+
+        private static readonly Comparison<SerializedOctreeNode> CompareSerializedNodes =
+            (a, b) => (int)Mathf.Sign(a.id - b.id);
 
         #endregion
     }
