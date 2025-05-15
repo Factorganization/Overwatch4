@@ -18,8 +18,8 @@ namespace GameContent.Actors.EnemySystems.Seekers
             base.Init(player);
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
-            /*_graph = navSpace.navGraph;
-            _currentNode = GetClosestNode(transform.position);
+            /*_navSpace = navSpace.NavSpaceData;
+            //_currentNode = GetClosestNode(transform.position);
             GetRandomDestination();*/
         }
 
@@ -49,7 +49,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
             }
             else
             {
-                //GetRandomDestination();
+                GetRandomDestination();
             }*/
             
             _atkTimer += Time.deltaTime;
@@ -89,47 +89,47 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
         #region custom path Find
 
-        private OctreeNode GetClosestNode(Vector3 pos)
+        /*private OctreeNode GetClosestNode(Vector3 pos)
         {
             return navSpace.Octree.FindClosestNode(pos);
-        }
+        }*/
         
         //TODO virer cee truc apres les tests
-        private void GetRandomDestination()
+        /*private void GetRandomDestination()
         {
             OctreeNode dest;
             do
             {
-                dest = _graph.nodes.ElementAt(Random.Range(0, _graph.nodes.Count)).Key;
-            } while (!_graph.AStar(_currentNode, dest));
+                dest = navSpace.NavSpaceData.nodes.ElementAt(Random.Range(0, _navSpace.nodes.Count)).position;
+            } while (!_navSpace.AStar(_currentNode, dest));
 
             _currentWayPointId = 0;
-        }
+        }*/
         
         #endregion
 
-        private void OnDrawGizmos()
+        /*private void OnDrawGizmos()
         {
-            if (_graph is null || _graph.PathLength == 0)
+            if (_navSpace is null || _navSpace.PathLength == 0)
                 return;
             
             Gizmos.color = Color.Lerp(Color.red, Color.yellow, 0.5f);
             
-            Gizmos.DrawWireSphere(_graph[0].bounds.center, 0.7f);
-            Gizmos.DrawWireSphere(_graph[_graph.PathLength - 1].bounds.center, 0.7f);
+            Gizmos.DrawWireSphere(_navSpace[0].bounds.center, 0.7f);
+            Gizmos.DrawWireSphere(_navSpace[_navSpace.PathLength - 1].bounds.center, 0.7f);
 
-            for (var i = 0; i < _graph.PathLength; i++)
+            for (var i = 0; i < _navSpace.PathLength; i++)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(_graph[i].bounds.center, 0.4f);
+                Gizmos.DrawWireSphere(_navSpace[i].bounds.center, 0.4f);
 
-                if (i < _graph.PathLength - 1)
+                if (i < _navSpace.PathLength - 1)
                 {
                     Gizmos.color = Color.magenta;
-                    Gizmos.DrawLine(_graph[i].bounds.center, _graph[i + 1].bounds.center);
+                    Gizmos.DrawLine(_navSpace[i].bounds.center, _navSpace[i + 1].bounds.center);
                 }
             }
-        }
+        }*/
         
         #endregion
         
@@ -147,7 +147,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
         [SerializeField] private NavSpaceGenerator navSpace;
 
-        private Graph _graph;
+        private NavSpaceData _navSpace;
         
         private float _speed = 5f;
 
