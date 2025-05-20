@@ -15,6 +15,8 @@ public class MapLink : MonoBehaviour
      private RoomMap _roomMap;
      private EnemyCamera _enemyCamera;
 
+     public TMP_InputField LinkNameInputField => _linkNameInputField;
+     
      public RoomMap RoomMap
      {
           get => _roomMap;
@@ -25,7 +27,6 @@ public class MapLink : MonoBehaviour
      private void Awake()
      {
           _sabotageButton.onClick.AddListener(UnlinkDevice);
-          _linkNameInputField.onEndEdit.AddListener(VerifyID);
      }
 
      private void Start()
@@ -36,7 +37,7 @@ public class MapLink : MonoBehaviour
 
      // Verify if the Id is correct, if it's not correct,
      // it's will change the information that the camera will send to the processor
-     private void VerifyID(string playerInput)
+     public void VerifyID(string playerInput)
      {
           if (_linkedNode.type != NodeType.Device) return;
           
@@ -47,14 +48,13 @@ public class MapLink : MonoBehaviour
                     if (_roomMap.MapLink[i]._linkedNode.nodeId == _linkNameInputField.text)
                     {
                          // Will change the information that the camera will send to the processor
-                         SuspicionManager.Manager.StartTrack(_roomMap.MapLink[i]._linkedNode.actor as EnemyCamera);
                          _linkedNode._connectedNodes = _roomMap.MapLink[i]._linkedNode._connectedNodes;
+                         SuspicionManager.Manager.AddSuspicion(_suspicionValue);
                          return;
                     }
                }
           }
-          
-          SuspicionManager.Manager.AddSuspicion(_suspicionValue);
+          SuspicionManager.Manager.StartTrackPlayer(Hero.Instance);
      }
 
      public void UnlinkDevice()
