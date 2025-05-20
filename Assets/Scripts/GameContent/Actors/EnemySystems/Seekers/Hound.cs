@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using GameContent.Actors.ActorData;
 using GameContent.Actors.EnemySystems.EnemyNavigation;
-using GameContent.Management;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,41 +18,43 @@ namespace GameContent.Actors.EnemySystems.Seekers
             base.Init(player);
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
-            /*_navSpace = navSpace.NavSpaceData;
-            //_currentNode = GetClosestNode(transform.position);
-            GetRandomDestination();*/
+            _currentNode = GetClosestNode(transform.position);
+            GetRandomDestination();
         }
 
         public override void OnUpdate()
         {
-            /*if (_graph is null)
+            if (navSpaceRtm is null)
                 return;
 
-            if (_graph.PathLength == 0 || _currentWayPointId >= _graph.PathLength)
+            if (_currentPath is null)
+                return;
+            
+            if (_currentPath.Count == 0 || _currentWayPointId >= _currentPath.Count)
             {
                 GetRandomDestination();
                 return;
             }
 
-            if (Vector3.Distance(_graph[_currentWayPointId].bounds.center, transform.position) <= _accuracy)
+            if (Vector3.Distance(_currentPath[_currentWayPointId].position, transform.position) <= Accuracy)
                 _currentWayPointId++;
 
-            if (_currentWayPointId < _graph.PathLength)
+            if (_currentWayPointId < _currentPath.Count)
             {
-                _currentNode = _graph[_currentWayPointId];
-                _targetPosition = _currentNode.bounds.center;
+                _currentNode = _currentPath[_currentWayPointId];
+                _targetPosition = _currentNode.position;
                 
                 var dir = (_targetPosition - transform.position).normalized;
                 
-                transform.position += dir * (Time.fixedDeltaTime * 5);
+                transform.position += dir * (Time.fixedDeltaTime * Speed);
                 //transform.Translate(0, 0, _speed * Time.deltaTime);
             }
             else
             {
                 GetRandomDestination();
-            }*/
+            }
             
-            _atkTimer += Time.deltaTime;
+            /*_atkTimer += Time.deltaTime;
             
             if (Vector3.Distance(transform.position, playerTransform.position) < 10 && Vector3.Distance(transform.position, SuspicionManager.Manager.StartDebugPos) > 2)
             {
@@ -75,7 +77,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
             if (Vector3.Distance(transform.position, playerTransform.position) > 10 && !SuspicionManager.Manager.IsTracking)
             {
                 _navMeshAgent.destination = SuspicionManager.Manager.StartDebugPos;
-            }
+            }*/
         }
 
         public override void OnFixedUpdate()
@@ -89,47 +91,65 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
         #region custom path Find
 
-        /*private OctreeNode GetClosestNode(Vector3 pos)
+        private RunTimePathNode GetClosestNode(Vector3 pos)
         {
-            return navSpace.Octree.FindClosestNode(pos);
-        }*/
+            //return navSpace.Octree.FindClosestNode(pos);
+
+            var d = float.MaxValue;
+            float td;
+            RunTimePathNode closest = null;
+            
+            foreach (var rpn in navSpaceRtm.RunTimePathNodes)
+            {
+                td = Vector3.Distance(rpn.position, pos);
+
+                if (td < d)
+                {
+                    closest = rpn;
+                    d = td;
+                }
+            }
+
+            return closest;
+        }
         
         //TODO virer cee truc apres les tests
-        /*private void GetRandomDestination()
+        private void GetRandomDestination()
         {
-            OctreeNode dest;
-            do
-            {
-                dest = navSpace.NavSpaceData.nodes.ElementAt(Random.Range(0, _navSpace.nodes.Count)).position;
-            } while (!_navSpace.AStar(_currentNode, dest));
-
+            var closestNode = GetClosestNode(transform.position);
+            var dest = navSpaceRtm.RunTimePathNodes.ElementAt(Random.Range(0, navSpaceRtm.RunTimePathNodes.Count));
+            _currentPath = PathFinder.FindPath(closestNode, dest);
+            
             _currentWayPointId = 0;
-        }*/
+        }
         
         #endregion
 
-        /*private void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
-            if (_navSpace is null || _navSpace.PathLength == 0)
+            if (navSpaceRtm is null || _currentPath is null)
+                return;
+            
+            if (_currentPath.Count == 0)
                 return;
             
             Gizmos.color = Color.Lerp(Color.red, Color.yellow, 0.5f);
             
-            Gizmos.DrawWireSphere(_navSpace[0].bounds.center, 0.7f);
-            Gizmos.DrawWireSphere(_navSpace[_navSpace.PathLength - 1].bounds.center, 0.7f);
+            Gizmos.DrawWireSphere(_currentPath[0].position, 0.7f);
+            Gizmos.DrawWireSphere(_currentPath[^1].position, 0.7f);
 
-            for (var i = 0; i < _navSpace.PathLength; i++)
+            for (var i = 0; i < _currentPath.Count; i++)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(_navSpace[i].bounds.center, 0.4f);
+                Gizmos.DrawWireSphere(_currentPath[i].position, 0.4f);
 
-                if (i < _navSpace.PathLength - 1)
+                if (i < _currentPath.Count - 1)
                 {
                     Gizmos.color = Color.magenta;
-                    Gizmos.DrawLine(_navSpace[i].bounds.center, _navSpace[i + 1].bounds.center);
+                    Gizmos.DrawLine(_currentPath[i].position, _currentPath[i + 1].position);
                 }
             }
-        }*/
+        }
         
         #endregion
         
@@ -145,19 +165,19 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
         #region custom nav volume
 
-        [SerializeField] private NavSpaceGenerator navSpace;
+        [SerializeField] private NavSpaceRunTimeManager navSpaceRtm;
 
-        private NavSpaceData _navSpace;
-        
-        private float _speed = 5f;
+        private List<RunTimePathNode> _currentPath;
 
-        private float _accuracy = 1f;
+        private const float Speed = 5f;
 
-        private float _turnSpeed = 5f;
+        private const float Accuracy = 1f;
+
+        //private float _turnSpeed = 5f; //used if graph rotation
 
         private int _currentWayPointId;
         
-        private OctreeNode _currentNode;
+        private RunTimePathNode _currentNode;
         
         private Vector3 _targetPosition;
 

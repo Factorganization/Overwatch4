@@ -14903,6 +14903,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
+--- !u!65 &700431847 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2120429173251220064, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
+  m_PrefabInstance: {fileID: 700431846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &716718592
 GameObject:
   m_ObjectHideFlags: 0
@@ -26842,6 +26847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1297646604}
   - component: {fileID: 1297646605}
+  - component: {fileID: 1297646606}
   m_Layer: 0
   m_Name: NavSpace
   m_TagString: Untagged
@@ -26876,7 +26882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f845b8042d4c9e9508769a2fc25184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navSpaceData: {fileID: 11400000, guid: 01fa197d4f3b47e41aad4f72bc51a6d7, type: 2}
+  navSpaceData: {fileID: 11400000, guid: 9b3f981027c7746459fba3a1964b2a5a, type: 2}
   worldObjs:
   - {fileID: 716718594}
   - {fileID: 775155927}
@@ -26932,6 +26938,7 @@ MonoBehaviour:
   - {fileID: 1375014034}
   - {fileID: 1228651848}
   - {fileID: 42042447}
+  - {fileID: 449684559}
   - {fileID: 66019431}
   - {fileID: 1983663020}
   - {fileID: 1129331545}
@@ -26974,15 +26981,31 @@ MonoBehaviour:
   - {fileID: 664504339}
   - {fileID: 1675507681}
   - {fileID: 675736807}
-  minNodeSize: 3
+  - {fileID: 1300077261}
+  - {fileID: 1709888449}
+  - {fileID: 700431847}
+  minNodeSize: 2
+  bakeBlockingLayer:
+    serializedVersion: 2
+    m_Bits: 136314880
+--- !u!114 &1297646606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297646603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a9c912195446f09c6ac0dac2afaff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navSpaceData: {fileID: 11400000, guid: 9b3f981027c7746459fba3a1964b2a5a, type: 2}
   viewOptions:
     view3dNavSpace: 0
     view3dNavPath: 0
-    validateViewEdNavPath: 0
-    view3dNavPoints: 0
-  bakeBlockingLayer:
-    serializedVersion: 2
-    m_Bits: 136314888
+    validateView3dNavPath: 0
+    view3dNavPoints: 1
 --- !u!1001 &1300077260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27048,6 +27071,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18346e1b8983bae45b65ea703a024033, type: 3}
+--- !u!65 &1300077261 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3166404191521997664, guid: 18346e1b8983bae45b65ea703a024033, type: 3}
+  m_PrefabInstance: {fileID: 1300077260}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1300920786
 GameObject:
   m_ObjectHideFlags: 0
@@ -37926,9 +37954,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 890180705}
     m_Modifications:
+    - target: {fileID: 441452319157881432, guid: 4a14e746ecfbd904495064842d132635, type: 3}
+      propertyPath: navSpaceRtm
+      value: 
+      objectReference: {fileID: 1297646606}
     - target: {fileID: 1346593655078715440, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4883812955066025936, guid: 4a14e746ecfbd904495064842d132635, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42529,6 +42561,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
+--- !u!65 &1709888449 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2120429173251220064, guid: 9c52256cc4c7d244cbae74f1bfef0c66, type: 3}
+  m_PrefabInstance: {fileID: 1709888448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1713631538
 GameObject:
   m_ObjectHideFlags: 0

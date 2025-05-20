@@ -12,7 +12,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             
             if (start is null || end is null)
             {
-                Debug.LogError("No start or end node found");
+                //Debug.LogError("No start or end node found");
                 return new List<RunTimePathNode>();
             }
 
@@ -31,7 +31,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             {
                 if (++iterationCount > GameConstants.MaxPathFindIteration)
                 {
-                    Debug.LogError("Pathfind iteration exceeded");
+                    //Debug.LogError("Pathfind iteration exceeded");
                     return new List<RunTimePathNode>();
                 }
 
@@ -66,7 +66,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                 }
             }
             
-            Debug.Log("No path found");
+            //Debug.Log("No path found");
             return new List<RunTimePathNode>();
         }
 

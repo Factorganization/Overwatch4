@@ -193,7 +193,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         private int _currentDepthContentCount;
         
-        private const int DepthCountThreshold = 50;
+        private const int DepthCountThreshold = 500000;
         
         private static readonly Comparison<Node> NodeComparer = (a, b) => (int)Mathf.Sign(a.f - b.f);
 
@@ -251,8 +251,6 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             this.a = a;
             this.b = b;
             this.depth = depth;
-            aDepth = a.depth;
-            bDepth = b.depth;
         }
 
         #endregion
@@ -272,11 +270,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         public readonly Node a;
 
-        public readonly int aDepth;
-        
         public readonly Node b;
-        
-        public readonly int bDepth;
         
         public readonly int depth;
         

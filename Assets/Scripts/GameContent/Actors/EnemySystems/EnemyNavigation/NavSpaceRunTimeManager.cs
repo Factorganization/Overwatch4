@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -35,34 +36,47 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             _obstacles = new List<NavSpaceObstacle>();
 
             GenRunTimePath();
-            //await UniTask.WaitUntil(() => _runTimePathEdges.Count >= navSpaceData.edges.Count);
-            _navSpaceLoaded = true;
+            await UniTask.WaitUntil(() => _navSpaceLoaded);
         }
 
         private void GenRunTimePath()
         {
-            /*foreach (var n in navSpaceData.nodes)
+            foreach (var sd in navSpaceData.subData)
             {
-                _runTimePathNodes.Add(SerializedOctreeNode.CreateRunTimePathNode(n));
+                foreach (var n in sd.nodes)
+                {
+                    _runTimePathNodes.Add(SerializedOctreeNode.CreateRunTimePathNode(n));
+                }
             }
 
-            foreach (var e in navSpaceData.edges)
+            _runTimePathNodes.Sort(CompareRunTimeNodes);
+            
+            foreach (var sd in navSpaceData.subData)
             {
-                var rte = SerializedOctreeEdge.CreateRunTimePathEdge(_runTimePathNodes[e.a], _runTimePathNodes[e.b]);
-                _runTimePathEdges.Add(rte);
-                _runTimePathNodes[e.a].edges.Add(rte);
-                _runTimePathNodes[e.b].edges.Add(rte);
-            }*/
+                foreach (var e in sd.edges)
+                {
+                    var rte = SerializedOctreeEdge.CreateRunTimePathEdge(_runTimePathNodes[e.a], _runTimePathNodes[e.b]);
+                    _runTimePathEdges.Add(rte);
+                    _runTimePathNodes[e.a].edges.Add(rte);
+                    _runTimePathNodes[e.b].edges.Add(rte);
+                }
+            }
+            
+            _navSpaceLoaded = true;
         }
         
         private void OnDrawGizmos()
         {
-            /*if (viewOptions.view3dNavSpace)
+            if (viewOptions.view3dNavSpace)
             {
-                foreach (var n in navSpaceData.nodes)
+                foreach (var sd in navSpaceData.subData)
                 {
-                    Gizmos.color = Color.Lerp(Color.blue, Color.green, navSpaceData.minBoundSize / n.bounds.size.x);
-                    Gizmos.DrawWireCube(n.bounds.center, n.bounds.size);
+                    foreach (var n in sd.nodes)
+                    {
+                        Gizmos.color = Color.Lerp(Color.blue, Color.green, navSpaceData.minBoundSize / n.bounds.size.x);
+                        Gizmos.DrawWireCube(n.bounds.center, n.bounds.size);
+                    }
+                    
                 }
             }
             
@@ -71,9 +85,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                 case true when RunTimePathNodes is null:
                 {
                     Gizmos.color = new Color(1, 0.35f, 0, 0.25f);
-                    foreach (var n in navSpaceData.nodes)
+                    foreach (var sd in navSpaceData.subData)
                     {
-                        Gizmos.DrawWireSphere(n.position, 0.3f);
+                        foreach (var n in sd.nodes)
+                        {
+                            Gizmos.DrawWireSphere(n.position, 0.3f);
+                        }
                     }
 
                     break;
@@ -92,16 +109,6 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             
             switch (viewOptions.view3dNavPath)
             {
-                case true when viewOptions.validateView3dNavPath && RunTimePathEdges is null:
-                {
-                    Gizmos.color = new Color(1, 0, 0, 0.25f);
-                    foreach (var e in navSpaceData.edges)
-                    {
-                        Gizmos.DrawLine(navSpaceData.nodes[e.a].position, navSpaceData.nodes[e.b].position);
-                    }
-
-                    break;
-                }
                 case true when viewOptions.validateView3dNavPath && RunTimePathEdges is not null:
                 {
                     Gizmos.color = new Color(1, 0, 0, 0.25f);
@@ -115,7 +122,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
                     break;
                 }
-            }*/
+            }
         }
         
         #endregion
@@ -133,11 +140,14 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         private List<NavSpaceObstacle> _obstacles;
         
         private bool _navSpaceLoaded;
+        
+        private static readonly Comparison<RunTimePathNode> CompareRunTimeNodes =
+            (a, b) => (int)Mathf.Sign(a.id - b.id);
 
         #endregion
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ViewOptions
     {
         #region fields

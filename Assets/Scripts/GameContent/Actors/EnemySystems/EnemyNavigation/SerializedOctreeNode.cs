@@ -14,9 +14,9 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             position = node.octreeNode.bounds.center;
             bounds = node.octreeNode.bounds;
             
-            edges = new List<SerializedOctreeEdge>();
+            /*edges = new List<SerializedOctreeEdge>();
             foreach (var e in node.edges)
-                edges.Add(new SerializedOctreeEdge(e));
+                edges.Add(new SerializedOctreeEdge(e));*/
             
             depth = node.depth;
         }
@@ -38,7 +38,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         public Vector3 position;
 
-        public List<SerializedOctreeEdge> edges;
+        //public List<SerializedOctreeEdge> edges;
 
         public Bounds bounds;
         

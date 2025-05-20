@@ -30,11 +30,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         #region fields
         
-        /*[HideInInspector]*/ public List<SerializedOctreeNode> nodes;
-        /**/
-        /*[HideInInspector]*/ public List<SerializedOctreeEdge> edges;
-        /**/
-        /*[HideInInspector]*/ public int depth;
+        [HideInInspector] public List<SerializedOctreeNode> nodes = new();
+        
+        [HideInInspector] public List<SerializedOctreeEdge> edges = new();
+        
+        [HideInInspector] public int depth;
         
         #endregion
     }

@@ -8,34 +8,42 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region methodes
 
-        public void AddSubData(NavSpaceSubData subData)
+        public void AddSubData(NavSpaceSubData sub)
         {
-            subDatas.Add(subData);
+            subData.Add(sub);
 
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
         
-        public void AddNode(SerializedOctreeNode node, NavSpaceSubData subData)
+        public void AddNode(SerializedOctreeNode node, NavSpaceSubData sub)
         {
-            subData.AddNode(node);
+            sub.AddNode(node);
+            
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif 
         }
         
-        public void AddEdge(SerializedOctreeEdge edge, NavSpaceSubData subData)
+        public void AddEdge(SerializedOctreeEdge edge, NavSpaceSubData sub)
         {
-            subData.AddEdge(edge);
+            sub.AddEdge(edge);
+            
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
         }
 
         #endregion
         
         #region fields
 
-        /*[HideInInspector]*/ public List<NavSpaceSubData> subDatas;
-/**/
-        /*[HideInInspector]*/ public float minBoundSize;
-/**/
-        /*[HideInInspector]*/ public string subDataPath;
+        [HideInInspector] public List<NavSpaceSubData> subData;
+
+        [HideInInspector] public float minBoundSize;
+
+        [HideInInspector] public string subDataPath;
 
         #endregion
     }
