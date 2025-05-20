@@ -3,38 +3,39 @@ using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
-    [CreateAssetMenu(fileName = "NavSpaceData", menuName = "NavSpace")]
+    [CreateAssetMenu(fileName = "NavSpaceData", menuName = "NavSpace/NavSpaceData")]
     public class NavSpaceData : ScriptableObject
     {
         #region methodes
 
-        public void AddNode(SerializedOctreeNode node)
+        public void AddSubData(NavSpaceSubData subData)
         {
-            nodes.Add(node);
+            subDatas.Add(subData);
 
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
-
-        public void AddEdge(SerializedOctreeEdge edge)
+        
+        public void AddNode(SerializedOctreeNode node, NavSpaceSubData subData)
         {
-            edges.Add(edge);
-            
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
-#endif
+            subData.AddNode(node);
+        }
+        
+        public void AddEdge(SerializedOctreeEdge edge, NavSpaceSubData subData)
+        {
+            subData.AddEdge(edge);
         }
 
         #endregion
         
         #region fields
-        
-        [HideInInspector] public List<SerializedOctreeNode> nodes;
-        
-        [HideInInspector] public List<SerializedOctreeEdge> edges;
 
-        [HideInInspector] public float minBoundSize;
+        /*[HideInInspector]*/ public List<NavSpaceSubData> subDatas;
+/**/
+        /*[HideInInspector]*/ public float minBoundSize;
+/**/
+        /*[HideInInspector]*/ public string subDataPath;
 
         #endregion
     }

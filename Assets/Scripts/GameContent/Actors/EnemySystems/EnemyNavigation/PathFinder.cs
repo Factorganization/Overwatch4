@@ -6,22 +6,14 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
     public static class PathFinder
     {
-        public static List<TempPathNode> AStar(SerializedOctreeNode startNode, SerializedOctreeNode endNode, NavSpaceData navSpaceData)
+        public static List<RunTimePathNode> FindPath(RunTimePathNode start, RunTimePathNode end)
         {
             PathList.Clear();
-            var start = SerializedOctreeNode.CreateTempNode(startNode);
-            var end = SerializedOctreeNode.CreateTempNode(endNode);
-
-            if (navSpaceData is null)
-            {
-                Debug.LogError("NavSpaceData is null");
-                return new List<TempPathNode>();
-            }
             
             if (start is null || end is null)
             {
                 Debug.LogError("No start or end node found");
-                return new List<TempPathNode>();
+                return new List<RunTimePathNode>();
             }
 
             OpenList.Clear();
@@ -40,7 +32,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                 if (++iterationCount > GameConstants.MaxPathFindIteration)
                 {
                     Debug.LogError("Pathfind iteration exceeded");
-                    return new List<TempPathNode>();
+                    return new List<RunTimePathNode>();
                 }
 
                 OpenList.Sort(NodeComparer);
@@ -56,16 +48,14 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                 
                 foreach (var e in current.edges)
                 {
-                    var n = e.a == current.id
-                        ? SerializedOctreeNode.CreateTempNode(navSpaceData.nodes[e.b])
-                        : SerializedOctreeNode.CreateTempNode(navSpaceData.nodes[e.a]);
+                    var n = e.a.id == current.id ? e.b : e.a;
                     
                     if (ClosedList.Contains(n))
                         continue;
                     
                     var tempG = current.g + Heuristic(current, n);
 
-                    if (tempG >= n.g && OpenList.Contains(n))
+                    if ((tempG >= n.g && OpenList.Contains(n)) || !n.isAvailable)
                         continue;
                     
                     n.g = tempG;
@@ -77,12 +67,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             }
             
             Debug.Log("No path found");
-            return new List<TempPathNode>();
+            return new List<RunTimePathNode>();
         }
 
-        private static float Heuristic(TempPathNode a, TempPathNode b) => (a.position - b.position).sqrMagnitude;
+        private static float Heuristic(RunTimePathNode a, RunTimePathNode b) => (a.position - b.position).sqrMagnitude;
 
-        private static List<TempPathNode> GetFullPath(TempPathNode current)
+        private static List<RunTimePathNode> GetFullPath(RunTimePathNode current)
         {
             while (current is not null)
             {
@@ -94,12 +84,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             return PathList;
         }
 
-        private static readonly List<TempPathNode> PathList = new();
+        private static readonly List<RunTimePathNode> PathList = new();
         
-        private static readonly List<TempPathNode> OpenList = new();
+        private static readonly List<RunTimePathNode> OpenList = new();
         
-        private static readonly List<TempPathNode> ClosedList = new();
+        private static readonly List<RunTimePathNode> ClosedList = new();
         
-        private static readonly Comparison<TempPathNode> NodeComparer = (a, b) => (int)Mathf.Sign(a.f - b.f);
+        private static readonly Comparison<RunTimePathNode> NodeComparer = (a, b) => (int)Mathf.Sign(a.f - b.f);
     }
 }

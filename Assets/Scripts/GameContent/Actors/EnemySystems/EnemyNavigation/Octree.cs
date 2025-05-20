@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
@@ -8,11 +9,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region constructors
 
-        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, NavGraph navGraph, LayerMask bakeLayer, NavSpaceData navSpaceData)
+        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, NavGraph navGraph, LayerMask bakeLayer, NavSpaceData navSpaceData, NavSpaceSubData currentData)
         {
             _navGraph = navGraph;
             _bakeLayer = bakeLayer;
             _navSpaceData = navSpaceData;
+            _currentData = currentData;
             
             CalculateBounds(parent, worldObjs);
             CreateTree(worldObjs, minNodeSize);
@@ -105,11 +107,6 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                     
                     if (!cast)
                         _navGraph.AddEdge(el, ol);
-                    
-                    /*if (el.bounds.Intersects(ol.bounds)) //TODO conditions
-                    {
-                        graph.AddEdge(el, ol);
-                    }*/
                 }
             }
         }
@@ -117,12 +114,50 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         private void BakeData()
         {
             foreach (var n in _navGraph.nodes.Values)
-                _navSpaceData.AddNode(new SerializedOctreeNode(n));
+            {
+                _tempNodes.Add(new SerializedOctreeNode(n));
+            }
 
-            _navSpaceData.nodes.Sort(CompareSerializedNodes);
-            
+            _tempNodes.Sort(CompareSerializedNodes);
+
             foreach (var e in _navGraph.edges)
-                _navSpaceData.AddEdge(new SerializedOctreeEdge(e));
+            {
+                _tempEdges.Add(new SerializedOctreeEdge(e));
+            }
+
+            //TODO
+            
+            foreach (var n in _tempNodes)
+            {
+                _navSpaceData.AddNode(n, _currentData);
+                
+                if (n.depth == _currentDepthThreshold)
+                    continue;
+
+                _currentDepthThreshold++;
+                AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NavSpaceSubData>(), _navSpaceData.subDataPath + "\\sd" + _currentDepthThreshold + ".asset");
+                AssetDatabase.SaveAssets();
+                
+                var z = AssetDatabase.LoadAssetAtPath(_navSpaceData.subDataPath + "\\sd" + _currentDepthThreshold + ".asset", typeof(NavSpaceSubData)) as NavSpaceSubData;
+                _navSpaceData.AddSubData(z);
+                _currentData = z;
+            }
+            
+            foreach (var e in _tempEdges)
+            {
+                _navSpaceData.AddEdge(e, _currentData);
+                
+                if (e.depth == _currentDepthThreshold)
+                    continue;
+
+                _currentDepthThreshold++;
+                AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NavSpaceSubData>(), _navSpaceData.subDataPath + "\\sd" + _currentDepthThreshold + ".asset");
+                AssetDatabase.SaveAssets();
+                
+                var z = AssetDatabase.LoadAssetAtPath(_navSpaceData.subDataPath + "\\sd" + _currentDepthThreshold + ".asset", typeof(NavSpaceSubData)) as NavSpaceSubData;
+                _navSpaceData.AddSubData(z);
+                _currentData = z;
+            }
         }
 
         #endregion
@@ -140,6 +175,14 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         private readonly LayerMask _bakeLayer;
 
         private readonly NavSpaceData _navSpaceData;
+
+        private NavSpaceSubData _currentData;
+        
+        private int _currentDepthThreshold;
+        
+        private readonly List<SerializedOctreeNode> _tempNodes = new();
+        
+        private readonly List<SerializedOctreeEdge> _tempEdges = new();
 
         private static readonly Comparison<SerializedOctreeNode> CompareSerializedNodes =
             (a, b) => (int)Mathf.Sign(a.id - b.id);

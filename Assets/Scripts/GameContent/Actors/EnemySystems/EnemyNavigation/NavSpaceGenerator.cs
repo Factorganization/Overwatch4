@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
@@ -19,42 +21,27 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         [ContextMenu("Generate Nav Space")]
         private void Bake()
         {
-            navSpaceData.nodes.Clear();
-            navSpaceData.edges.Clear();
             navSpaceData.minBoundSize = minNodeSize;
             
-            _navGraph = new NavGraph();
-            _octree = new Octree(transform, worldObjs, minNodeSize, _navGraph, bakeBlockingLayer, navSpaceData);
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (viewOptions.view3dNavSpace)
+            var tp = AssetDatabase.GetAssetPath(navSpaceData);
+            var s = tp.Split('/');
+            var ns = "";
+            for (var i = 0; i < s.Length - 1; i++)
             {
-                foreach (var n in navSpaceData.nodes)
-                {
-                    Gizmos.color = Color.Lerp(Color.blue, Color.green, navSpaceData.minBoundSize / n.bounds.size.x);
-                    Gizmos.DrawWireCube(n.bounds.center, n.bounds.size);
-                }
+                ns += s[i];
+                ns += '\\';
             }
-
-            if (viewOptions.view3dNavPoints)
-            {
-                Gizmos.color = new Color(1, 0.35f, 0, 0.25f);
-                foreach (var n in navSpaceData.nodes)
-                {
-                    Gizmos.DrawWireSphere(n.position, 0.3f);
-                }
-            }
+            var sdp = ns + navSpaceData.name + "Subs";
+            Directory.CreateDirectory(sdp);
+            navSpaceData.subDataPath = sdp;
+            AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NavSpaceSubData>(), sdp + "\\sd0" + ".asset");
+            AssetDatabase.SaveAssets();
             
-            if (viewOptions.view3dNavPath && viewOptions.validateViewEdNavPath)
-            {
-                Gizmos.color = new Color(1, 0, 0, 0.25f);
-                foreach (var e in navSpaceData.edges)
-                {
-                    Gizmos.DrawLine(navSpaceData.nodes[e.a].position, navSpaceData.nodes[e.b].position);
-                }
-            }
+            var z = AssetDatabase.LoadAssetAtPath(sdp + "\\sd0" + ".asset", typeof(NavSpaceSubData)) as NavSpaceSubData;
+            navSpaceData.AddSubData(z);
+            
+            _navGraph = new NavGraph();
+            _octree = new Octree(transform, worldObjs, minNodeSize, _navGraph, bakeBlockingLayer, navSpaceData, z);
         }
 
         #endregion
@@ -63,37 +50,17 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         [SerializeField] private NavSpaceData navSpaceData;
         
+        [SerializeField] private NavSpaceSubData navSpaceSubData;
+        
         [SerializeField] private Collider[] worldObjs;
         
         [SerializeField] private float minNodeSize;
-
-        [SerializeField] private ViewOptions viewOptions;
         
         [SerializeField] private LayerMask bakeBlockingLayer;
         
         private NavGraph _navGraph;
         
         private Octree _octree;
-        
-        #endregion
-    }
-
-    [System.Serializable]
-    public class ViewOptions
-    {
-        #region fields
-        
-        public bool view3dNavSpace;
-        
-        [Header("A vos risques et perils celui ci")]
-        public bool view3dNavPath;
-        
-        [Header("Vraiment va falloir relancer Unity")]
-        public bool validateViewEdNavPath;
-        
-        [Space(10)]
-        
-        public bool view3dNavPoints;
         
         #endregion
     }
