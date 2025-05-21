@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -35,11 +36,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             _runTimePathEdges = new List<RunTimePathEdge>();
             _obstacles = new List<NavSpaceObstacle>();
 
-            await GenRunTimePath();
+            await Task.Run(GenRunTimePath);
             //await UniTask.WaitUntil(() => _navSpaceLoaded);
         }
 
-        private UniTask<bool> GenRunTimePath()
+        private void GenRunTimePath()
         {
             foreach (var sd in navSpaceData.subData)
             {
@@ -61,8 +62,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                     _runTimePathNodes[e.b].edges.Add(rte);
                 }
             }
-
-            return UniTask.FromResult(true);
+            
+            _navSpaceLoaded = true;
         }
         
         private void OnDrawGizmos()

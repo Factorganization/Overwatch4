@@ -18,21 +18,29 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         private void Update()
         {
-            if (_lastPos != transform.position)
-            {
-                _lockedPositions = LockNodes();
-            }
+            var p = transform.position;
+            var b = _collider.bounds;
             
-            _lastPos = transform.position;
+            UpdateAsync(p, b);
         }
 
-        private List<Vector3> LockNodes()
+        private async void UpdateAsync(Vector3 pos, Bounds b)
+        {
+            if (_lastPos != pos)
+            {
+                _lockedPositions = await UniTask.RunOnThreadPool(() => LockNodesAsync(b));
+            }
+            
+            _lastPos = pos;
+        }
+
+        /*private List<Vector3> LockNodes(Bounds bounds)
         {
             var lockedPositions = new List<Vector3>();
             
             foreach (var n in NavSpaceRunTimeManager.Manager.RunTimePathNodes)
             {
-                var b = _collider.bounds.Contains(n.position);
+                var b = bounds.Contains(n.position);
                 if (b)
                 {
                     n.isAvailable = false;
@@ -45,15 +53,15 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                 }
             }
             return lockedPositions;
-        }
+        }*/
         
-        private async UniTask<List<Vector3>> LockNodesAsync()
+        private async UniTask<List<Vector3>> LockNodesAsync(Bounds bounds)
         {
             var lockedPositions = new List<Vector3>();
             
             foreach (var n in NavSpaceRunTimeManager.Manager.RunTimePathNodes)
             {
-                var b = _collider.bounds.Contains(n.position);
+                var b = bounds.Contains(n.position);
                 if (b)
                 {
                     n.isAvailable = false;

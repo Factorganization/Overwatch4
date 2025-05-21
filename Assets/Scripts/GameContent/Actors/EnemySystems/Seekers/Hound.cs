@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using GameContent.Actors.ActorData;
 using GameContent.Actors.EnemySystems.EnemyNavigation;
@@ -16,29 +15,56 @@ namespace GameContent.Actors.EnemySystems.Seekers
     {
         #region methodes
 
-        public override void Init(Transform player)
+        public override async void Init(Transform player)
         {
+            _ct = _cancellationTokenSource.Token;
+            
+            await UniTask.WaitUntil(() => navSpaceRtm.NavSpaceLoaded, cancellationToken: _ct);
+            var pos = new Vector3(425, 14, -94);
+            
             IsActive = true;
+            _calculatingPath = false;
             base.Init(player);
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
-            _currentNode = GetClosestNode(transform.position);
-            GetRandomDestination();
+            _currentNode = GetClosestNode(pos);
+            _calculatingPath = true;
+            await UniTask.RunOnThreadPool(() => GetRandomDestination(pos, _ct), cancellationToken: _ct);
         }
 
         public override void OnUpdate()
         {
+            Debug.Log(_calculatingPath);
+            if (_calculatingPath)
+                _calculationTime += Time.deltaTime;
+
+            if (_calculationTime > 5)
+            {
+                _cancellationTokenSource.Cancel();
+                _calculationTime = 0;
+                _calculatingPath = false;
+                Debug.Log("Cancelling...");
+            }
+            
             if (navSpaceRtm is null)
                 return;
-
+            
             if (_currentPath is null)
                 return;
             
-            if (_currentPath.Count == 0 || _currentWayPointId >= _currentPath.Count)
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                GetRandomDestination();
-                return;
+                if (_calculatingPath)
+                    return;
+                
+                _calculatingPath = true;
+                _calculationTime = 0;
+                var pos = transform.position;
+                UniTask.RunOnThreadPool(() => GetRandomDestination(pos, _ct), cancellationToken: _ct);
             }
+            
+            if (_currentPath.Count <= 0 || _currentWayPointId >= _currentPath.Count)
+                return;
 
             if (Vector3.Distance(_currentPath[_currentWayPointId].position, transform.position) <= Accuracy)
                 _currentWayPointId++;
@@ -51,11 +77,6 @@ namespace GameContent.Actors.EnemySystems.Seekers
                 var dir = (_targetPosition - transform.position).normalized;
                 
                 transform.position += dir * (Time.fixedDeltaTime * Speed);
-                //transform.Translate(0, 0, _speed * Time.deltaTime);
-            }
-            else
-            {
-                GetRandomDestination();
             }
             
             /*_atkTimer += Time.deltaTime;
@@ -64,9 +85,9 @@ namespace GameContent.Actors.EnemySystems.Seekers
             {
                 _navMeshAgent.destination = playerTransform.position;
                 SuspicionManager.Manager.DetectionTime += 1;
-            }
+            }*/
             
-            if (Vector3.Distance(transform.position, playerTransform.position) < 2.5f)
+            /*if (Vector3.Distance(transform.position, playerTransform.position) < 2.5f)
             {
                 if (_atkTimer > 2 && SuspicionManager.Manager.IsTracking)
                 {
@@ -113,32 +134,22 @@ namespace GameContent.Actors.EnemySystems.Seekers
                 closest = rpn;
                 d = td;
             }
-
+            
             return closest;
         }
         
         //TODO virer cee truc apres les tests
-        private void GetRandomDestination()
+        private async void GetRandomDestination(Vector3 pos, CancellationToken cancellationToken)
         {
-            try
-            {
-                //var closestNode = await Task.Run(() => GetClosestNode(transform.position));
-                var closestNode = GetClosestNode(transform.position);
-                var dest = navSpaceRtm.RunTimePathNodes.ElementAt(Random.Range(0, navSpaceRtm.RunTimePathNodes.Count));
-                //_currentPath = await Task.Run(() => PathFinder.FindPath(closestNode, dest));
-                _currentPath = PathFinder.FindPath(closestNode, dest);
-
-                _currentWayPointId = 0;
-            }
-            catch (Exception e)
-            {
-                IsActive = false;
-                throw new Exception(e.Message);
-            }
-            finally
-            {
-                IsActive = false;
-            }
+            var closestNode = await UniTask.RunOnThreadPool(() => GetClosestNode(pos), cancellationToken: _ct);
+            //var closestNode = GetClosestNode(transform.position);
+            var dest = navSpaceRtm.RunTimePathNodes.ElementAt(Random.Range(0, navSpaceRtm.RunTimePathNodes.Count));
+            
+            _currentPath = await UniTask.RunOnThreadPool(() => PathFinder.FindPath(closestNode, dest), cancellationToken: cancellationToken);
+            //_currentPath = PathFinder.FindPath(closestNode, dest);
+            
+            _currentWayPointId = 0;
+            _calculatingPath = false;
         }
         
         #endregion
@@ -198,6 +209,14 @@ namespace GameContent.Actors.EnemySystems.Seekers
         private RunTimePathNode _currentNode;
         
         private Vector3 _targetPosition;
+
+        private bool _calculatingPath;
+
+        private float _calculationTime;
+
+        private CancellationToken _ct;
+        
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         #endregion
 
