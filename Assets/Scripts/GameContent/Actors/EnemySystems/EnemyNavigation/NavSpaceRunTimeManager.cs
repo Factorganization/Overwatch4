@@ -35,11 +35,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             _runTimePathEdges = new List<RunTimePathEdge>();
             _obstacles = new List<NavSpaceObstacle>();
 
-            GenRunTimePath();
-            await UniTask.WaitUntil(() => _navSpaceLoaded);
+            await GenRunTimePath();
+            //await UniTask.WaitUntil(() => _navSpaceLoaded);
         }
 
-        private void GenRunTimePath()
+        private UniTask<bool> GenRunTimePath()
         {
             foreach (var sd in navSpaceData.subData)
             {
@@ -61,8 +61,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                     _runTimePathNodes[e.b].edges.Add(rte);
                 }
             }
-            
-            _navSpaceLoaded = true;
+
+            return UniTask.FromResult(true);
         }
         
         private void OnDrawGizmos()

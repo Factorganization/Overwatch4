@@ -4,34 +4,8 @@ using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
-    [Serializable]
     public class NavGraph
     {
-        #region properties
-
-        public int PathLength => _pathList.Count;
-        
-        public List<Node> Path => _pathList;
-
-        public OctreeNode this[int i]
-        {
-            get
-            {
-                if (_pathList is null)
-                    return null;
-
-                if (i < 0 || i >= _pathList.Count)
-                {
-                    Debug.LogError($"Path Index {i} is out of range.");
-                    return null;
-                }
-                
-                return _pathList[i].octreeNode;
-            }
-        }
-        
-        #endregion
-
         #region constructors
 
         public NavGraph()

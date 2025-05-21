@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using GameContent.Actors.ActorData;
 using GameContent.Actors.EnemySystems.EnemyNavigation;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace GameContent.Actors.EnemySystems.Seekers
 {
@@ -103,11 +107,11 @@ namespace GameContent.Actors.EnemySystems.Seekers
             {
                 td = Vector3.Distance(rpn.position, pos);
 
-                if (td < d)
-                {
-                    closest = rpn;
-                    d = td;
-                }
+                if (td >= d)
+                    continue;
+                
+                closest = rpn;
+                d = td;
             }
 
             return closest;
@@ -116,11 +120,25 @@ namespace GameContent.Actors.EnemySystems.Seekers
         //TODO virer cee truc apres les tests
         private void GetRandomDestination()
         {
-            var closestNode = GetClosestNode(transform.position);
-            var dest = navSpaceRtm.RunTimePathNodes.ElementAt(Random.Range(0, navSpaceRtm.RunTimePathNodes.Count));
-            _currentPath = PathFinder.FindPath(closestNode, dest);
-            
-            _currentWayPointId = 0;
+            try
+            {
+                //var closestNode = await Task.Run(() => GetClosestNode(transform.position));
+                var closestNode = GetClosestNode(transform.position);
+                var dest = navSpaceRtm.RunTimePathNodes.ElementAt(Random.Range(0, navSpaceRtm.RunTimePathNodes.Count));
+                //_currentPath = await Task.Run(() => PathFinder.FindPath(closestNode, dest));
+                _currentPath = PathFinder.FindPath(closestNode, dest);
+
+                _currentWayPointId = 0;
+            }
+            catch (Exception e)
+            {
+                IsActive = false;
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                IsActive = false;
+            }
         }
         
         #endregion
@@ -143,11 +161,11 @@ namespace GameContent.Actors.EnemySystems.Seekers
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawWireSphere(_currentPath[i].position, 0.4f);
 
-                if (i < _currentPath.Count - 1)
-                {
-                    Gizmos.color = Color.magenta;
-                    Gizmos.DrawLine(_currentPath[i].position, _currentPath[i + 1].position);
-                }
+                if (i >= _currentPath.Count - 1)
+                    continue;
+                
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawLine(_currentPath[i].position, _currentPath[i + 1].position);
             }
         }
         
