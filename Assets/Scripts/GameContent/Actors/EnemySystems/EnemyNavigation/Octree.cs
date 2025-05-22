@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,16 +10,18 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region constructors
 
-        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, NavGraph navGraph, LayerMask bakeLayer, NavSpaceData navSpaceData)
+        public Octree(Transform parent, Collider[] worldObjs, float minNodeSize, NavGraph navGraph, LayerMask bakeLayer, NavSpaceData navSpaceData, List<NavSpaceBoundsDataHandling> navSpaceBounds)
         {
             _navGraph = navGraph;
             _bakeLayer = bakeLayer;
             _navSpaceData = navSpaceData;
+            _navSpaceBounds = navSpaceBounds;
             
             CalculateBounds(parent, worldObjs);
             CreateTree(worldObjs, minNodeSize);
             
             GetEmptyLeaves(_root);
+            //ClearNodes();
             GetEdges();
 
             BakeData();
@@ -53,6 +56,17 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         {
             if (node.IsLeaf && node.objs.Count == 0)
             {
+                var c = 0;
+                
+                foreach (var b in _navSpaceBounds)
+                {
+                    if (!b.Bounds.Contains(node.bounds.center))
+                        c++;
+                }
+                
+                if (c >= _navSpaceBounds.Count)
+                    return;
+                
                 _emptyLeaves.Add(node);
                 _navGraph.AddNode(node);
                 return;
@@ -63,16 +77,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
             foreach (var o in node.children)
                 GetEmptyLeaves(o);
-
-            for (var i = 0; i < node.children.Length; i++)
-            {
-                for (var j = i + 1; j < node.children.Length; j++)
-                {
-                    _navGraph.AddEdge(node.children[i], node.children[j]);
-                }
-            }
         }
-
+        
         private void GetEdges()
         {
             foreach (var el in _emptyLeaves)
@@ -105,7 +111,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             }
             
             _tempEdges.Sort(CompareSerializedEdges);
-
+            
             var i = _tempEdges[^1].depth;
 
             for (var j = 1; j < i + 1; j++)
@@ -157,6 +163,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         private readonly List<SerializedOctreeEdge> _tempEdges = new();
 
+        private readonly List<NavSpaceBoundsDataHandling> _navSpaceBounds = new();
+        
         private static readonly Comparison<SerializedOctreeNode> CompareSerializedNodes =
             (a, b) => (int)Mathf.Sign(a.id - b.id);
 

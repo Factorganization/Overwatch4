@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
@@ -16,92 +14,6 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         #endregion
         
         #region methodes
-
-        #region pathFind
-        
-        public bool AStar(OctreeNode startNode, OctreeNode endNode)
-        {
-            _pathList.Clear();
-            var start = FindNode(startNode);
-            var end = FindNode(endNode);
-
-            if (start is null || end is null)
-            {
-                Debug.LogError("No start or end node found");
-                return false;
-            }
-
-            _openList.Clear();
-            _closedList.Clear();
-            
-            var iterationCount = 0;
-
-            start.g = 0;
-            start.h = Heuristic(start, end);
-            start.f = start.g + start.h;
-            start.from = null;
-            _openList.Add(start);
-
-            while (_openList.Count > 0)
-            {
-                if (++iterationCount > GameConstants.MaxPathFindIteration)
-                {
-                    Debug.LogError("Pathfind iteration exceeded");
-                    return false;
-                }
-
-                _openList.Sort(NodeComparer);
-                var current = _openList[0];
-                _openList.Remove(current);
-
-                if (current.Equals(end))
-                {
-                    GetFullPath(current);
-                    return true;
-                }
-                
-                _closedList.Add(current);
-                
-                foreach (var e in current.edges)
-                {
-                    var n = Equals(e.a, current) ? e.b : e.a;
-                    
-                    if (_closedList.Contains(n))
-                        continue;
-                    
-                    var tempG = current.g + Heuristic(current, n);
-
-                    if (tempG >= n.g && _openList.Contains(n))
-                        continue;
-                    
-                    n.g = tempG;
-                    n.h = Heuristic(n, end);
-                    n.f = n.g + n.h;
-                    n.from = current;
-                    _openList.Add(n);
-                }
-            }
-            
-            Debug.Log("No path found");
-            return false;
-        }
-
-        private float Heuristic(Node a, Node b) => (a.octreeNode.bounds.center - b.octreeNode.bounds.center).sqrMagnitude;
-
-        private void GetFullPath(Node current)
-        {
-            while (current is not null)
-            {
-                _pathList.Add(current);
-                current = current.from;
-            }
-            
-            _pathList.Reverse();
-        }
-        
-        #endregion
-        
-        #region graph Gen
         
         public void AddNode(OctreeNode node)
         {
@@ -148,8 +60,6 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         }
         
         #endregion
-
-        #endregion
         
         #region fields
         
@@ -157,19 +67,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         public readonly HashSet<Edge> edges = new();
 
-        private List<Node> _pathList = new();
-        
-        private List<Node> _openList = new();
-        
-        private List<Node> _closedList = new();
-
         private int _currentDepth;
 
         private int _currentDepthContentCount;
         
         private const int DepthCountThreshold = 500000;
-        
-        private static readonly Comparison<Node> NodeComparer = (a, b) => (int)Mathf.Sign(a.f - b.f);
 
         #endregion
     }

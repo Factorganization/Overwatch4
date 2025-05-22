@@ -17,7 +17,12 @@
     </ui:VisualElement>
     <ui:VisualElement style="flex-grow: 1; align-items: center;">
         <ui:VisualElement class="section" style="flex-grow: 1;">
-            <ui:Button text="Bake" data-source-type="GameContent.Actors.EnemySystems.EnemyNavigation.NavSpaceGenerator, Assembly-CSharp" name="Bake" style="width: 115px; height: 35px; -unity-text-align: middle-center;" />
+            <ui:Button text="Add Boundary" data-source-type="GameContent.Actors.EnemySystems.EnemyNavigation.NavSpaceGenerator, Assembly-CSharp" name="AddBoundary" style="width: 115px; height: 35px; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; align-items: center;">
+        <ui:VisualElement class="section" style="flex-grow: 1;">
+            <ui:Button text="Bake" data-source-type="GameContent.Actors.EnemySystems.EnemyNavigation.NavSpaceGenerator, Assembly-CSharp" name="Bake" style="width: 115px; height: 35px; -unity-text-align: middle-center; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(198, 245, 191); color: rgb(31, 31, 31);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

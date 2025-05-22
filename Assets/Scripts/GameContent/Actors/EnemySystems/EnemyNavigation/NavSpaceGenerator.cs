@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,6 +7,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
     public class NavSpaceGenerator : MonoBehaviour
     {
+        #region properties
+
+        public List<NavSpaceBoundsDataHandling> Bounds => bounds;
+
+        #endregion
+        
         #region methodes
 
         public void Bake()
@@ -36,31 +43,21 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             navSpaceData.AddSubData(z);
             
             _navGraph = new NavGraph();
-            _octree = new Octree(transform, worldObjs, minNodeSize, _navGraph, bakeBlockingLayer, navSpaceData);
+            _octree = new Octree(transform, worldObjs, minNodeSize, _navGraph, bakeBlockingLayer, navSpaceData, bounds);
         }
 
-        private void Bknozddofknz()
+        public void AddBoundary()
         {
-            /*var e = File.Open(Application.dataPath + "/Resources/bhjnbhjn.bytes", FileMode.CreateNew);
-            var b = new BinaryWriter(e);
-            b.Write("k,k,l,kl");
-            e.Close();
-            b.Dispose();
-            b.Dispose();*/
+            var b = new GameObject("Bounds" + bounds.Count, typeof(NavSpaceBounds), typeof(NavSpaceBoundsDataHandling));
+            b.transform.SetParent(transform);
+            b.transform.position = transform.position + Vector3.down;
             
-            var tp = AssetDatabase.GetAssetPath(navSpaceData);
-            var s = tp.Split('/');
-            var ns = "";
-            for (var i = 0; i < s.Length - 1; i++)
-            {
-                ns += s[i];
-                ns += '\\';
-            }
-            var sdp = ns + navSpaceData.name + "Subs";
+            var dh = b.GetComponent<NavSpaceBoundsDataHandling>();
+            dh.Bounds = new Bounds(Vector3.zero, Vector3.one * 5);
+            dh.Position = transform.position + Vector3.up;
+            dh.NavSpaceGeneratorRef = this;
             
-            
-            var f = new FileInfo(sdp + "\\sd0" + ".asset").Length;
-            Debug.Log(f);
+            bounds.Add(dh);
         }
         
         #endregion
@@ -70,6 +67,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         [SerializeField] private NavSpaceData navSpaceData;
         
         [SerializeField] private Collider[] worldObjs;
+        
+        [SerializeField] [HideInInspector] private List<NavSpaceBoundsDataHandling> bounds;
         
         [SerializeField] private float minNodeSize;
         

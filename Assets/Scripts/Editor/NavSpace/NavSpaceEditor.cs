@@ -23,6 +23,9 @@ namespace Editor.NavSpace
             _bakeButton = root.Q<Button>("Bake");
             _bakeButton.RegisterCallback<ClickEvent>(OnBake);
             
+            _addButton = root.Q<Button>("AddBoundary");
+            _addButton.RegisterCallback<ClickEvent>(OnAddBoundary);
+            
             return root;
         }
 
@@ -31,11 +34,18 @@ namespace Editor.NavSpace
             _target.Bake();
         }
 
+        private void OnAddBoundary(ClickEvent evt)
+        {
+            _target.AddBoundary();
+        }
+        
         #endregion
 
         #region fields
 
         public VisualTreeAsset visualTree;
+
+        private Button _addButton;
         
         private Button _bakeButton;
         

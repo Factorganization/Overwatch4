@@ -34,7 +34,6 @@ namespace GameContent.Actors.EnemySystems.Seekers
 
         public override void OnUpdate()
         {
-            Debug.Log(_calculatingPath);
             if (_calculatingPath)
                 _calculationTime += Time.deltaTime;
 
@@ -43,7 +42,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
                 _cancellationTokenSource.Cancel();
                 _calculationTime = 0;
                 _calculatingPath = false;
-                Debug.Log("Cancelling...");
+                Debug.Log("Cancelling Path Calculation");
             }
             
             if (navSpaceRtm is null)
@@ -179,13 +178,13 @@ namespace GameContent.Actors.EnemySystems.Seekers
                 Gizmos.DrawLine(_currentPath[i].position, _currentPath[i + 1].position);
             }
         }
-        
+
         #endregion
-        
+
         #region fields
 
         [SerializeField] private HoundData houndData;
-        
+
         private NavMeshAgent _navMeshAgent;
 
         private Vector3 _currentTargetPosition;
@@ -205,9 +204,9 @@ namespace GameContent.Actors.EnemySystems.Seekers
         //private float _turnSpeed = 5f; //used if graph rotation
 
         private int _currentWayPointId;
-        
+
         private RunTimePathNode _currentNode;
-        
+
         private Vector3 _targetPosition;
 
         private bool _calculatingPath;
@@ -215,7 +214,7 @@ namespace GameContent.Actors.EnemySystems.Seekers
         private float _calculationTime;
 
         private CancellationToken _ct;
-        
+
         private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         #endregion

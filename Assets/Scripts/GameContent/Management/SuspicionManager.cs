@@ -67,7 +67,7 @@ namespace GameContent.Management
                 }
             }
             return; //POUR FIRST PLAYABLE
-            if (_suspicionLevel > 0 && _suspicionDecreaseTimer < 0)
+            /*if (_suspicionLevel > 0 && _suspicionDecreaseTimer < 0)
             {
                 RemoveSuspicion(suspicionDecreasePerSecond);
                 _suspicionDecreaseTimer = 1;
@@ -85,7 +85,7 @@ namespace GameContent.Management
                 IsTracking = true;
                 
                 
-            }
+            }*/
         }
 
         public void AddSuspicion(float value) => _suspicionLevel += value;

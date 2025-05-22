@@ -5,7 +5,7 @@ namespace Systems.Inventory
 {
     public class InventoryView : StorageView
     {
-        [SerializeField] string panelName = "Inventory";
+        //[SerializeField] string panelName = "Inventory";
         
         public override IEnumerator InitView(ViewModel viewModel)
         {

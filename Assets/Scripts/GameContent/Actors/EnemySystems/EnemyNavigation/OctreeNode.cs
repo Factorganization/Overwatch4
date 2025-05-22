@@ -16,7 +16,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         public OctreeNode(Bounds bounds, float minNodeSize)
         {
             this.bounds = bounds; 
-            this._minNodeSize = minNodeSize;
+            _minNodeSize = minNodeSize;
 
             var newSize = bounds.size * 0.5f;
             var centerOffset = bounds.size * 0.25f;
