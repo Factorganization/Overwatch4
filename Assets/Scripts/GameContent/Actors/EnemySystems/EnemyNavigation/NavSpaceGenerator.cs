@@ -1,62 +1,68 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
     public class NavSpaceGenerator : MonoBehaviour
     {
-        #region properties
-
-        public Octree Octree => _octree;
-        
-        public NavGraph NavGraph => _navGraph;
-
-        public NavSpaceData NavSpaceData => navSpaceData;
-
-        #endregion
-        
         #region methodes
 
-        [ContextMenu("Generate Nav Space")]
-        private void Bake()
+        public void Bake()
         {
-            navSpaceData.nodes.Clear();
-            navSpaceData.edges.Clear();
+            navSpaceData.subData.Clear();
             navSpaceData.minBoundSize = minNodeSize;
+            
+            var tp = AssetDatabase.GetAssetPath(navSpaceData);
+            var s = tp.Split('/');
+            var ns = "";
+            for (var i = 0; i < s.Length - 1; i++)
+            {
+                ns += s[i];
+                ns += '\\';
+            }
+            var sdp = ns + navSpaceData.name + "Subs";
+            
+            if (Directory.Exists(sdp))
+                Directory.Delete(sdp, true);
+            AssetDatabase.Refresh();
+            Directory.CreateDirectory(sdp);
+            navSpaceData.subDataPath = sdp;
+            AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NavSpaceSubData>(), sdp + "\\sd0" + ".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.ImportAsset(sdp + "\\sd0" + ".asset", ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+            
+            var z = AssetDatabase.LoadAssetAtPath(sdp + "\\sd0" + ".asset", typeof(NavSpaceSubData)) as NavSpaceSubData;
+            navSpaceData.AddSubData(z);
             
             _navGraph = new NavGraph();
             _octree = new Octree(transform, worldObjs, minNodeSize, _navGraph, bakeBlockingLayer, navSpaceData);
         }
 
-        private void OnDrawGizmosSelected()
+        private void Bknozddofknz()
         {
-            if (viewOptions.view3dNavSpace)
-            {
-                foreach (var n in navSpaceData.nodes)
-                {
-                    Gizmos.color = Color.Lerp(Color.blue, Color.green, navSpaceData.minBoundSize / n.bounds.size.x);
-                    Gizmos.DrawWireCube(n.bounds.center, n.bounds.size);
-                }
-            }
-
-            if (viewOptions.view3dNavPoints)
-            {
-                Gizmos.color = new Color(1, 0.35f, 0, 0.25f);
-                foreach (var n in navSpaceData.nodes)
-                {
-                    Gizmos.DrawWireSphere(n.position, 0.3f);
-                }
-            }
+            /*var e = File.Open(Application.dataPath + "/Resources/bhjnbhjn.bytes", FileMode.CreateNew);
+            var b = new BinaryWriter(e);
+            b.Write("k,k,l,kl");
+            e.Close();
+            b.Dispose();
+            b.Dispose();*/
             
-            if (viewOptions.view3dNavPath && viewOptions.validateViewEdNavPath)
+            var tp = AssetDatabase.GetAssetPath(navSpaceData);
+            var s = tp.Split('/');
+            var ns = "";
+            for (var i = 0; i < s.Length - 1; i++)
             {
-                Gizmos.color = new Color(1, 0, 0, 0.25f);
-                foreach (var e in navSpaceData.edges)
-                {
-                    Gizmos.DrawLine(navSpaceData.nodes[e.a].position, navSpaceData.nodes[e.b].position);
-                }
+                ns += s[i];
+                ns += '\\';
             }
+            var sdp = ns + navSpaceData.name + "Subs";
+            
+            
+            var f = new FileInfo(sdp + "\\sd0" + ".asset").Length;
+            Debug.Log(f);
         }
-
+        
         #endregion
         
         #region fields
@@ -66,34 +72,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         [SerializeField] private Collider[] worldObjs;
         
         [SerializeField] private float minNodeSize;
-
-        [SerializeField] private ViewOptions viewOptions;
         
         [SerializeField] private LayerMask bakeBlockingLayer;
         
         private NavGraph _navGraph;
         
         private Octree _octree;
-        
-        #endregion
-    }
-
-    [System.Serializable]
-    public class ViewOptions
-    {
-        #region fields
-        
-        public bool view3dNavSpace;
-        
-        [Header("A vos risques et perils celui ci")]
-        public bool view3dNavPath;
-        
-        [Header("Vraiment va falloir relancer Unity")]
-        public bool validateViewEdNavPath;
-        
-        [Space(10)]
-        
-        public bool view3dNavPoints;
         
         #endregion
     }

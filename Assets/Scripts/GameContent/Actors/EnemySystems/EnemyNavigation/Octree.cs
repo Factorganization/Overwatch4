@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
@@ -47,28 +48,6 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             var size = Vector3.one * Mathf.Max(_bounds.size.x, _bounds.size.y, _bounds.size.z) * 0.6f;
             _bounds.SetMinMax(_bounds.center - size, _bounds.center + size);
         }
-
-        //public OctreeNode FindClosestNode(Vector3 position) => FindClosestNode(_root, position);
-        /*public OctreeNode FindClosestNode(OctreeNode node, Vector3 position)
-        {
-            OctreeNode found = null;
-
-            for (var i = 0; i < node.children.Length; i++)
-            {
-                if (node.children[i].bounds.Contains(position))
-                {
-                    if (node.children[i].IsLeaf)
-                    {
-                        found = node.children[i];
-                        break;
-                    }
-
-                    found = FindClosestNode(node.children[i], position);
-                }
-            }
-
-            return found;
-        }*/
         
         private void GetEmptyLeaves(OctreeNode node)
         {
@@ -101,15 +80,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
                 foreach (var ol in _emptyLeaves)
                 {
                     var ray = new Ray(el.bounds.center, ol.bounds.center - el.bounds.center);
-                    var cast = Physics.Raycast(ray, Vector3.Distance(el.bounds.center, ol.bounds.center), _bakeLayer);
+                    var cast = Physics.Raycast(ray, 30, _bakeLayer);
                     
-                    if (!cast)
-                        _navGraph.AddEdge(el, ol);
+                    if (cast || Vector3.Distance(el.bounds.center, ol.bounds.center) > 29)
+                        continue;
                     
-                    /*if (el.bounds.Intersects(ol.bounds)) //TODO conditions
-                    {
-                        graph.AddEdge(el, ol);
-                    }*/
+                    _navGraph.AddEdge(el, ol);
                 }
             }
         }
@@ -117,12 +93,46 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         private void BakeData()
         {
             foreach (var n in _navGraph.nodes.Values)
-                _navSpaceData.AddNode(new SerializedOctreeNode(n));
+            {
+                _tempNodes.Add(new SerializedOctreeNode(n));
+            }
 
-            _navSpaceData.nodes.Sort(CompareSerializedNodes);
-            
+            _tempNodes.Sort(CompareSerializedNodes);
+
             foreach (var e in _navGraph.edges)
-                _navSpaceData.AddEdge(new SerializedOctreeEdge(e));
+            {
+                _tempEdges.Add(new SerializedOctreeEdge(e));
+            }
+            
+            _tempEdges.Sort(CompareSerializedEdges);
+
+            var i = _tempEdges[^1].depth;
+
+            for (var j = 1; j < i + 1; j++)
+            {
+                AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NavSpaceSubData>(), _navSpaceData.subDataPath + "\\sd" + j + ".asset");
+                AssetDatabase.SaveAssets();
+                AssetDatabase.ImportAsset(_navSpaceData.subDataPath + "\\sd" + j + ".asset", ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+                
+                var z = AssetDatabase.LoadAssetAtPath(_navSpaceData.subDataPath + "\\sd" + j + ".asset", typeof(NavSpaceSubData)) as NavSpaceSubData;
+                _navSpaceData.AddSubData(z);
+            }
+            
+            PopulateBake();
+        }
+
+        private void PopulateBake()
+        {
+            foreach (var n in _tempNodes)
+            {
+                _navSpaceData.subData[n.depth].AddNode(n);
+            }
+            
+            foreach (var e in _tempEdges)
+            {
+                _navSpaceData.subData[e.depth].AddEdge(e);
+            }
+            AssetDatabase.SaveAssets();
         }
 
         #endregion
@@ -140,9 +150,18 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         private readonly LayerMask _bakeLayer;
 
         private readonly NavSpaceData _navSpaceData;
+        
+        private int _currentDepthThreshold;
+        
+        private readonly List<SerializedOctreeNode> _tempNodes = new();
+        
+        private readonly List<SerializedOctreeEdge> _tempEdges = new();
 
         private static readonly Comparison<SerializedOctreeNode> CompareSerializedNodes =
             (a, b) => (int)Mathf.Sign(a.id - b.id);
+
+        private static readonly Comparison<SerializedOctreeEdge> CompareSerializedEdges =
+            (a, b) => (int)Mathf.Sign(a.depth - b.depth);
 
         #endregion
     }

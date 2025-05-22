@@ -4,34 +4,8 @@ using UnityEngine;
 
 namespace GameContent.Actors.EnemySystems.EnemyNavigation
 {
-    [Serializable]
     public class NavGraph
     {
-        #region properties
-
-        public int PathLength => _pathList.Count;
-        
-        public List<Node> Path => _pathList;
-
-        public OctreeNode this[int i]
-        {
-            get
-            {
-                if (_pathList is null)
-                    return null;
-
-                if (i < 0 || i >= _pathList.Count)
-                {
-                    Debug.LogError($"Path Index {i} is out of range.");
-                    return null;
-                }
-                
-                return _pathList[i].octreeNode;
-            }
-        }
-        
-        #endregion
-
         #region constructors
 
         public NavGraph()
@@ -132,7 +106,15 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         public void AddNode(OctreeNode node)
         {
             if (!nodes.ContainsKey(node))
-                nodes.Add(node, new Node(node));
+            {
+                nodes.Add(node, new Node(node, _currentDepth));
+                _currentDepthContentCount++;
+                if (_currentDepthContentCount >= DepthCountThreshold)
+                {
+                    _currentDepth++;
+                    _currentDepthContentCount = 0;
+                }
+            }
         }
 
         public void AddEdge(OctreeNode a, OctreeNode b)
@@ -143,10 +125,17 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
             if (nodeA is null || nodeB is null)
                 return;
             
-            var edge = new Edge(nodeA, nodeB);
+            var edge = new Edge(nodeA, nodeB, _currentDepth);
 
             if (!edges.Add(edge))
                 return;
+            
+            _currentDepthContentCount++;
+            if (_currentDepthContentCount >= DepthCountThreshold)
+            {
+                _currentDepth++;
+                _currentDepthContentCount = 0;
+            }
             
             nodeA.edges.Add(edge);
             nodeB.edges.Add(edge);
@@ -173,6 +162,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         private List<Node> _openList = new();
         
         private List<Node> _closedList = new();
+
+        private int _currentDepth;
+
+        private int _currentDepthContentCount;
+        
+        private const int DepthCountThreshold = 500000;
         
         private static readonly Comparison<Node> NodeComparer = (a, b) => (int)Mathf.Sign(a.f - b.f);
 
@@ -183,10 +178,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region constructors
 
-        public Node(OctreeNode ot)
+        public Node(OctreeNode ot, int depth)
         {
             id = nextId++;
             octreeNode = ot;
+            this.depth = depth;
         }
 
         #endregion
@@ -215,6 +211,8 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
 
         public float f, g, h;
 
+        public readonly int depth;
+
         #endregion
     }
 
@@ -222,10 +220,11 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     {
         #region constructors
 
-        public Edge(Node a, Node b)
+        public Edge(Node a, Node b, int depth)
         {
             this.a = a;
             this.b = b;
+            this.depth = depth;
         }
 
         #endregion
@@ -244,8 +243,10 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         #region fields
         
         public readonly Node a;
-        
+
         public readonly Node b;
+        
+        public readonly int depth;
         
         #endregion
     }

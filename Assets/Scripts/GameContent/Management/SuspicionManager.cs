@@ -1,4 +1,5 @@
 ﻿using GameContent.Actors.EnemySystems.Seekers;
+using Systems;
 using UnityEngine;
 
 namespace GameContent.Management
@@ -97,6 +98,14 @@ namespace GameContent.Management
             TrackedPos = cam.BaitTarget.position;
             
             debugHound.SetTargetPosition(cam.BaitTarget.position);
+        }
+
+        public void StartTrackPlayer(Hero player)
+        {
+            IsTracking = true;
+            TrackedPos = player.transform.position;
+            
+            debugHound.SetTargetPosition(player.transform.position);
         }
         
         #endregion
