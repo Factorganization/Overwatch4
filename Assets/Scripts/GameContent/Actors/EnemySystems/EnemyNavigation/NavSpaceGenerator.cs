@@ -50,12 +50,12 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         {
             var b = new GameObject("Bounds" + bounds.Count, typeof(NavSpaceBounds), typeof(NavSpaceBoundsDataHandling));
             b.transform.SetParent(transform);
-            b.transform.position = transform.position + Vector3.down;
+            b.transform.position = transform.position + Vector3.down * (bounds.Count + 1);
             
             var dh = b.GetComponent<NavSpaceBoundsDataHandling>();
-            dh.Bounds = new Bounds(Vector3.zero, Vector3.one * 5);
-            dh.Position = transform.position + Vector3.up;
-            dh.NavSpaceGeneratorRef = this;
+            dh.Bounds = new Bounds(Vector3.zero, Vector3.one * 5.0f);
+            dh.Position = transform.position + Vector3.up * (bounds.Count + 1);
+            dh.navSpaceGeneratorRef = this;
             
             bounds.Add(dh);
         }
@@ -68,7 +68,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         [SerializeField] private Collider[] worldObjs;
         
-        [SerializeField] [HideInInspector] private List<NavSpaceBoundsDataHandling> bounds;
+        [SerializeField] private List<NavSpaceBoundsDataHandling> bounds;
         
         [SerializeField] private float minNodeSize;
         

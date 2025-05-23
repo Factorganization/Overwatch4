@@ -6,9 +6,7 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
     public class NavSpaceBoundsDataHandling : MonoBehaviour
     {
         #region properties
-
-        public NavSpaceGenerator NavSpaceGeneratorRef { get; set; }
-
+        
         public Vector3 Position
         {
             get => position;
@@ -44,14 +42,16 @@ namespace GameContent.Actors.EnemySystems.EnemyNavigation
         
         private void OnDestroy()
         {
-            if (!Application.isPlaying)
-                NavSpaceGeneratorRef.Bounds.Remove(this);
+            if (!Application.isPlaying && gameObject.scene.isLoaded)
+                navSpaceGeneratorRef.Bounds.Remove(this);
         }
 
         #endregion
         
         #region fields
 
+        [HideInInspector] [SerializeField] public NavSpaceGenerator navSpaceGeneratorRef;
+        
         [HideInInspector] [SerializeField] private Bounds bounds;
         
         [HideInInspector] [SerializeField] private Vector3 position;
